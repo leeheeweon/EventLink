@@ -9,7 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-public class WebSecurityConfig {
+public class SecurityConfig {
 
     @Bean
     public static BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -25,8 +25,8 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .loginPage("/login")
                         .usernameParameter("userId")
+                        .loginPage("/login")
                         .defaultSuccessUrl("/home")
                         .permitAll()
                 )
