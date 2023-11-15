@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Spring Security Example</title>
+</head>
+<body>
+
+<h2 th:text="|${userId}님 회원가입을 환영합니다.|"></h2>
+<button type="button" th:onclick="|location.href='@{/login}'|">로그인페이지로</button>
+</body>
+</html>
