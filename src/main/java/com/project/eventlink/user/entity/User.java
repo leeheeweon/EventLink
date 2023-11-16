@@ -1,6 +1,6 @@
-package com.project.eventlink.entity;
+package com.project.eventlink.user.entity;
 
-import com.project.eventlink.dto.JoinForm;
+import com.project.eventlink.user.dto.JoinForm;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

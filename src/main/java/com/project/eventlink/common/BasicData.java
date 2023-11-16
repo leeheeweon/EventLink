@@ -1,7 +1,7 @@
 package com.project.eventlink.common;
 
-import com.project.eventlink.dto.JoinForm;
-import com.project.eventlink.service.UserService;
+import com.project.eventlink.user.dto.JoinForm;
+import com.project.eventlink.user.service.UserService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

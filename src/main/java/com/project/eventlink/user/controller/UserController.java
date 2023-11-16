@@ -1,9 +1,9 @@
-package com.project.eventlink.controller;
+package com.project.eventlink.user.controller;
 
 
-import com.project.eventlink.dto.JoinForm;
-import com.project.eventlink.dto.LoginForm;
-import com.project.eventlink.service.UserService;
+import com.project.eventlink.user.dto.JoinForm;
+import com.project.eventlink.user.dto.LoginForm;
+import com.project.eventlink.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

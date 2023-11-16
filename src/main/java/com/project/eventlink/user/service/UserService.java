@@ -1,8 +1,8 @@
-package com.project.eventlink.service;
+package com.project.eventlink.user.service;
 
-import com.project.eventlink.dto.JoinForm;
-import com.project.eventlink.entity.User;
-import com.project.eventlink.repository.UserRepository;
+import com.project.eventlink.user.dto.JoinForm;
+import com.project.eventlink.user.entity.User;
+import com.project.eventlink.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

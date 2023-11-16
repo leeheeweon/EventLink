@@ -1,4 +1,4 @@
-package com.project.eventlink.dto;
+package com.project.eventlink.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

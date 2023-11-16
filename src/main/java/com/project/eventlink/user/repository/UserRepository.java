@@ -1,6 +1,6 @@
-package com.project.eventlink.repository;
+package com.project.eventlink.user.repository;
 
-import com.project.eventlink.entity.User;
+import com.project.eventlink.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
