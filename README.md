@@ -65,7 +65,7 @@ EventLink
 - Frontend
     - Thymeleaf
 - Database
-    - PostgreSQL
+    - PostgresSQL
     - flyway (DB 형상관리)
 - CI/CD
     - github action (예정)
