@@ -1,9 +1,9 @@
-package com.project.eventlink.user.controller;
+package com.project.eventlink.member.controller;
 
 
-import com.project.eventlink.user.dto.JoinForm;
-import com.project.eventlink.user.dto.LoginForm;
-import com.project.eventlink.user.service.UserService;
+import com.project.eventlink.member.dto.JoinForm;
+import com.project.eventlink.member.dto.LoginForm;
+import com.project.eventlink.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,26 +16,37 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
-public class UserController {
-    private final UserService userService;
+public class MemberController {
+    private final MemberService memberService;
 
-    @GetMapping("/join")
-    public String joinForm(JoinForm joinForm) {
-        return "views/join";
+    @GetMapping("/")
+    public String home() {
+        return "views/home";
     }
 
-    @PostMapping("/join")
+
+    @GetMapping("joinSelect")
+    public String joinSelect() {
+        return "views/joinSelect";
+    }
+
+    @GetMapping("/joinUser")
+    public String joinForm(JoinForm joinForm) {
+        return "views/joinUser";
+    }
+
+    @PostMapping("/joinUser")
     public String join(@Validated JoinForm joinForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "views/join";
+            return "views/joinUser";
         }
 
-        if (userService.loadUserByUsername(joinForm.getUserId()) != null) {
+        if (memberService.loadUserByUsername(joinForm.getUserId()) != null) {
             bindingResult.reject("duplicate", "중복된 Id 입니다. ");
-            return "views/join";
+            return "views/joinUser";
         }
 
-        userService.save(joinForm);
+        memberService.save(joinForm);
         redirectAttributes.addAttribute("userId", joinForm.getUserId());
 
         return "redirect:/joinSuccess";
@@ -54,21 +65,10 @@ public class UserController {
 
     @PostMapping("/login")
     public String login(LoginForm loginForm) {
-        if (userService.loadUserByUsername(loginForm.getUserId()) != null) {
+        if (memberService.loadUserByUsername(loginForm.getMemberId()) != null) {
             return "redirect:/home";
         }
 
         return "views/login";
     }
-
-    @GetMapping("/home")
-    public String home() {
-        return "views/home";
-    }
-
-    @GetMapping("/hello")
-    public String hello() {
-        return "views/hello";
-    }
-
 }

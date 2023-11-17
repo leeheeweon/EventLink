@@ -4,7 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
@@ -25,16 +24,22 @@ public class SecurityConfig {
                         .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
                 )
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/join", "/joinSuccess").permitAll()
+                        .requestMatchers("/", "/login", "/joinUser", "/joinProvider", "/joinSuccess").permitAll()
+                        .requestMatchers("/user/**").hasAuthority("USER")
+                        .requestMatchers("/provider/**").hasAuthority("PROVIDER")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
-                        .usernameParameter("userId")
+                        .usernameParameter("memberId")
                         .loginPage("/login")
-                        .defaultSuccessUrl("/home")
+                        .defaultSuccessUrl("/")
                         .permitAll()
                 )
-                .logout(LogoutConfigurer::permitAll);
+                .logout(logout -> logout
+                        .logoutSuccessUrl("/login")
+                        .invalidateHttpSession(true));
         return http.build();
     }
+
+
 }

@@ -55,6 +55,7 @@ EventLink
 - 업체는 프로모션, 할인 이벤트 등을 등록하여 사용자들에게 노출시킬 수 있습니다.
 
 ## **3. 기술 스택**
+
 - Backend
     - Java
     - Springboot 3

@@ -1,4 +1,4 @@
-package com.project.eventlink.user.dto;
+package com.project.eventlink.member.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -6,9 +6,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class JoinForm {
+public class LoginForm {
     @NotBlank
-    private String userId;
+    private String memberId;
     @NotBlank
     private String password;
 }

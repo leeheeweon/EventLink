@@ -5,13 +5,14 @@
 </head>
 <body>
 
-<form th:action="@{/join}" th:object="${joinForm}" method="post">
+<h2>회원가입</h2>
+<form th:action="@{/joinProvider}" th:object="${joinForm}" method="post">
     <div th:if="${#fields.hasGlobalErrors()}">
         <p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">
             전체 오류 메세지
         </p>
     </div>
-    <div><label> User Name : <input type="text" th:field="*{userId}" /> </label></div>
+    <div><label> User Name : <input type="text" th:field="*{userId}"/> </label></div>
     <p class="error" th:errors="*{userId}">userId error</p>
     <div><label> Password: <input type="password" th:field="*{password}"/> </label></div>
     <p class="error" th:errors="*{password}">password error</p>
