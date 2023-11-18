@@ -1,16 +1,7 @@
 package com.project.eventlink.entity;
 
 import com.project.eventlink.member.dto.JoinForm;
-import jakarta.persistence.Column;
-import jakarta.persistence.Embedded;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,6 +34,7 @@ public class Member extends BCryptPasswordEncoder implements UserDetails {
 
     @Column(name = "NAME")
     private String name;
+
     @Embedded
     private Address address;
 
