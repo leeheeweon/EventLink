@@ -24,7 +24,7 @@ public class SecurityConfig {
                         .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
                 )
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login", "/joinUser", "/joinProvider", "/joinSuccess").permitAll()
+                        .requestMatchers("/", "/login", "/joinUser","/joinSelect", "/joinProvider", "/joinSuccess").permitAll()
                         .requestMatchers("/user/**").hasAuthority("USER")
                         .requestMatchers("/provider/**").hasAuthority("PROVIDER")
                         .anyRequest().authenticated()

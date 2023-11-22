@@ -12,8 +12,8 @@
     You have been logged out.
 </div>
 <form th:action="@{/login}" method="post">
-    <div><label> User Name : <input type="text" name="memberId"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
+    <div><label> 아이디 : <input type="text" name="memberId"/> </label></div>
+    <div><label> 패스워드: <input type="password" name="password"/> </label></div>
     <div>
         <input type="submit" value="로그인"/>
         <button type="button" th:onclick="|location.href='@{/joinSelect}'|">회원가입</button>
