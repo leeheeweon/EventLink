@@ -24,7 +24,7 @@ public class SecurityConfig {
                         .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
                 )
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login", "/joinUser","/joinSelect", "/joinProvider", "/joinSuccess").permitAll()
+                        .requestMatchers("/", "/login", "/joinUser","/joinSelect", "/joinProvider", "/joinSuccess","css/**","images/**","js/**").permitAll()
                         .requestMatchers("/user/**").hasAuthority("USER")
                         .requestMatchers("/provider/**").hasAuthority("PROVIDER")
                         .anyRequest().authenticated()
@@ -36,7 +36,8 @@ public class SecurityConfig {
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/login")
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
                         .invalidateHttpSession(true));
         return http.build();
     }
