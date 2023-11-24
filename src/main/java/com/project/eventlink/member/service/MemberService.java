@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
-
     private final MemberRepository memberRepository;
 
     @Override
