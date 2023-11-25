@@ -31,3 +31,7 @@ logging:
   level:
     org.hibernate.sq: debug
     org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6
+
+jwt:
+  issuer: ${JWT_ISSUER}
+  secret_key: ${JWT_SECRET_KEY}
