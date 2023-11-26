@@ -14,6 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.Duration;
+import java.util.Date;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.*;
 
 public class JwtProviderTest extends BaseSpringBootTest {
 
@@ -28,11 +32,13 @@ public class JwtProviderTest extends BaseSpringBootTest {
     @DisplayName("토큰 생성")
     void generateToken() {
 
+        //given
         JoinForm joinForm = new JoinForm();
         joinForm.setUserId("test");
         joinForm.setRole(Role.USER);
         joinForm.setPassword("1234");
 
+        //when
         Member testMember = memberRepository.save(Member.createUserByJoinForm(joinForm));
 
         String token = provider.generateToken(testMember, Duration.ofDays(14));
@@ -42,7 +48,55 @@ public class JwtProviderTest extends BaseSpringBootTest {
                 .getBody()
                 .get("id", String.class);
 
-        Assertions.assertThat(id).isEqualTo(testMember.getMemberId());
+        //then
+        assertThat(id).isEqualTo(testMember.getMemberId());
     }
 
+    @Test
+    @DisplayName("만료된 토큰 검증")
+    void validToken_invalid() {
+        //given
+        String token = JwtFactory.builder()
+                .expiration(new Date(new Date().getTime() - Duration.ofDays(5).toMillis()))
+                .build()
+                .createToken(properties);
+
+        //when
+        boolean result = provider.validateToken(token);
+
+        //then
+        assertThat(result).isFalse();
+    }
+
+    @Test
+    @DisplayName("유효한 토큰 검증")
+    void validToken_valid() {
+        //given
+        String token = JwtFactory.withDefaultValues().createToken(properties);
+
+        //when
+        boolean result = provider.validateToken(token);
+
+        //then
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    @DisplayName("아이디 검증")
+    void getMemberId() {
+        //given
+        String memberId= "test";
+
+        String token = JwtFactory.builder()
+                .claims(Map.of("id", memberId))
+                .build()
+                .createToken(properties);
+
+        //when
+        String tokenMemberId = provider.getMemberId(token);
+
+        //then
+        assertThat(tokenMemberId).isEqualTo(memberId);
+
+    }
 }

@@ -31,7 +31,7 @@ public class TokenProvider {
         Date now = new Date();
         byte[] keyBytes = Base64.getDecoder().decode(properties.getSecretKey());
 
-        Claims claims = Jwts.claims().setSubject(member.getEmail());
+        Claims claims = Jwts.claims();
         claims.put("id", member.getMemberId());
         claims.put("role", member.getRole());
 
