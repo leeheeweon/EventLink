@@ -22,3 +22,7 @@ spring:
       name: admin
       password: 1234
       roles: ADMIN
+
+jwt:
+  issuer: test_issuer
+  secret_key: EIJuNzgsaYL3mY+5Yk5r3C44h8ObI9hh+b8N7mNSD6s=
