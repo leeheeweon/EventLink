@@ -10,7 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class ReservationEvent {
+public class ReservationEvent extends BasicEntity{
 
     @Id
     @Column(name = "RESERVATION_EVENT_ID")

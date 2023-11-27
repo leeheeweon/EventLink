@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "ORDER_ITEM")
-public class OrderItem {
+public class OrderItem extends BasicEntity{
     @Id
     @Column(name = "ORDER_ITEM_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

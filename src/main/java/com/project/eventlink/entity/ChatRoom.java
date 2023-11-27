@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "CHAT_ROOM")
-public class ChatRoom {
+public class ChatRoom extends BasicEntity{
     @Id
     @Column(name = "CHAT_ROOM_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

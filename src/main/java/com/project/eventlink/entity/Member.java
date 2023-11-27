@@ -6,11 +6,15 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,9 +22,10 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "MEMBER")
-public class Member extends BCryptPasswordEncoder implements UserDetails {
+public class Member extends BCryptPasswordEncoder  implements UserDetails {
 
     @Id
     @Column(name = "MEMBER_ID")
@@ -49,6 +54,11 @@ public class Member extends BCryptPasswordEncoder implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+    @CreatedDate
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime createdAt; // 생성일시
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Cart cart;
