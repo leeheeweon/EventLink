@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "DELIVERY")
-public class Delivery {
+public class Delivery extends BasicEntity{
     @Id
     @Column(name = "DELIVERY_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

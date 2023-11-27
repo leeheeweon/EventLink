@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "CART")
-public class Cart {
+public class Cart extends BasicEntity{
     @Id
     @Column(name = "CART_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

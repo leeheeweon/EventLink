@@ -1,6 +1,7 @@
 package com.project.eventlink.member.controller;
 
 
+import com.project.eventlink.entity.Role;
 import com.project.eventlink.member.dto.JoinForm;
 import com.project.eventlink.member.dto.LoginForm;
 import com.project.eventlink.member.service.MemberService;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class MemberController {
     private final MemberService memberService;
+
 
     @GetMapping("/")
     public String home() {
@@ -46,6 +48,7 @@ public class MemberController {
             return "views/joinUser";
         }
 
+        joinForm.setRole(Role.USER);
         memberService.save(joinForm);
         redirectAttributes.addAttribute("userId", joinForm.getUserId());
 

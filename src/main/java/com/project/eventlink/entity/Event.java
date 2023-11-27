@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "EVENT")
-public class Event {
+public class Event extends BasicEntity{
     @Id
     @Column(name = "EVENT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
