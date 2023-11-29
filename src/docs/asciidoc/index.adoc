@@ -1,0 +1,27 @@
+= EventLink API Documentation
+// Metadata:
+:description: EventLink Server API Documentation
+:keywords: java, spring, backend
+// settings:
+:doctype: book
+:toc: left
+:toclevels: 4
+:sectlinks:
+:icons: font
+:idprefix:
+:idseparator: -
+:source-highlighter: highlightjs
+
+[[Overview]]
+== Overview
+
+EventLink API Documentation 입니다.
+
+이 문서는 Spring RESTDocs 를 이용하여 작성되었습니다.
+
+[[Member-API]]
+== Member API
+Member 와 관련된 API 목록 입니다.
+[[Member-Login]]
+=== Member Login
+operation::member-login[snippets='http-request,http-response,request-body,response-body']
