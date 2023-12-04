@@ -27,18 +27,18 @@ public class MemberController {
     }
 
 
-    @GetMapping("joinSelect")
+    @GetMapping("/joinSelect")
     public String joinSelect() {
         return "views/joinSelect";
     }
 
     @GetMapping("/joinUser")
-    public String joinForm(JoinForm joinForm) {
+    public String joinUserForm(JoinForm joinForm) {
         return "views/joinUser";
     }
 
     @PostMapping("/joinUser")
-    public String join(@Validated JoinForm joinForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String joinUser(@Validated JoinForm joinForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             return "views/joinUser";
         }
@@ -54,6 +54,30 @@ public class MemberController {
 
         return "redirect:/joinSuccess";
     }
+
+    @GetMapping("/joinProvider")
+    public String joinProviderForm(JoinForm joinForm) {
+        return "views/joinProvider";
+    }
+
+    @PostMapping("/joinProvider")
+    public String joinProvider(@Validated JoinForm joinForm, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            return "views/joinUser";
+        }
+
+        if (memberService.loadUserByUsername(joinForm.getUserId()) != null) {
+            bindingResult.reject("duplicate", "중복된 Id 입니다. ");
+            return "views/joinUser";
+        }
+
+        joinForm.setRole(Role.PROVIDER);
+        memberService.save(joinForm);
+        redirectAttributes.addAttribute("userId", joinForm.getUserId());
+
+        return "redirect:/joinSuccess";
+    }
+
 
     @GetMapping("joinSuccess")
     public String joinSuccessForm(@RequestParam String userId, Model model) {
