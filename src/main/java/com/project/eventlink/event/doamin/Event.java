@@ -1,10 +1,11 @@
-package com.project.eventlink.entity;
+package com.project.eventlink.event.doamin;
 
+import com.project.eventlink.entity.BasicEntity;
+import com.project.eventlink.entity.Image;
+import com.project.eventlink.entity.Member;
+import com.project.eventlink.entity.ReservationEvent;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "EVENT")
-public class Event extends BasicEntity{
+public class Event extends BasicEntity {
     @Id
     @Column(name = "EVENT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

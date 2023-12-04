@@ -1,5 +1,6 @@
 package com.project.eventlink.entity;
 
+import com.project.eventlink.event.doamin.Event;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
