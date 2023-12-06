@@ -462,6 +462,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </li>
 </ul>
 </li>
+<li><a href="#Event-API">Event API</a>
+<ul class="sectlevel2">
+<li><a href="#event-list">Event List</a>
+<ul class="sectlevel3">
+<li><a href="#event-list_http_request">HTTP request</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -490,7 +499,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /login HTTP/1.1
-Host: api:8082</code></pre>
+Host: localhost:8080</code></pre>
 </div>
 </div>
 </div>
@@ -536,7 +545,7 @@ Content-Length: 1861
     &lt;div id="loginBox"&gt;
         &lt;div id="loginBoxTitle"&gt;EventLink 로그인&lt;/div&gt;
         &lt;div id="inputBox"&gt;
-            &lt;form action="/login" method="post"&gt;&lt;input type="hidden" name="_csrf" value="EPLkNTQxx1Yh5PGJFR1vYZvUX5V-o27yd1uWg2p8Xpz93NMBc5eCAQAJ8TAMhpS_LTBbA63jcq1Hx13fQTmg4QgdP6_E5eQx"/&gt;
+            &lt;form action="/login" method="post"&gt;&lt;input type="hidden" name="_csrf" value="fmp-tysaeZAV7WFehN9KM_andSwBMFKCtxOjItPDFIMDwI4EGwkfhRsqTPQ43Vlm5_J-BcTFWBRiUzGvhSSTFLf0LboypLsy"/&gt;
                 &lt;div class="input-form-box"&gt;&lt;span&gt;아이디 &lt;/span&gt;&lt;input type="text" name="memberId" class="form-control"&gt;
                 &lt;/div&gt;
                 &lt;div class="input-form-box"&gt;&lt;span&gt;비밀번호 &lt;/span&gt;&lt;input type="password" name="password" class="form-control"&gt;
@@ -592,7 +601,7 @@ Content-Length: 1861
     &lt;div id="loginBox"&gt;
         &lt;div id="loginBoxTitle"&gt;EventLink 로그인&lt;/div&gt;
         &lt;div id="inputBox"&gt;
-            &lt;form action="/login" method="post"&gt;&lt;input type="hidden" name="_csrf" value="EPLkNTQxx1Yh5PGJFR1vYZvUX5V-o27yd1uWg2p8Xpz93NMBc5eCAQAJ8TAMhpS_LTBbA63jcq1Hx13fQTmg4QgdP6_E5eQx"/&gt;
+            &lt;form action="/login" method="post"&gt;&lt;input type="hidden" name="_csrf" value="fmp-tysaeZAV7WFehN9KM_andSwBMFKCtxOjItPDFIMDwI4EGwkfhRsqTPQ43Vlm5_J-BcTFWBRiUzGvhSSTFLf0LboypLsy"/&gt;
                 &lt;div class="input-form-box"&gt;&lt;span&gt;아이디 &lt;/span&gt;&lt;input type="text" name="memberId" class="form-control"&gt;
                 &lt;/div&gt;
                 &lt;div class="input-form-box"&gt;&lt;span&gt;비밀번호 &lt;/span&gt;&lt;input type="password" name="password" class="form-control"&gt;
@@ -612,11 +621,29 @@ Content-Length: 1861
 </div>
 </div>
 </div>
+<div class="sect1">
+<h2 id="Event-API"><a class="link" href="#Event-API">Event API</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="event-list"><a class="link" href="#event-list">Event List</a></h3>
+<div class="sect3">
+<h4 id="event-list_http_request"><a class="link" href="#event-list_http_request">HTTP request</a></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /event/list?_csrf=sbRjykwQqJ6c2nGsskLZ9CYs5QFDfUGr_Y2KCmET49n4e9zQhdYHrnglyq6x7BCUg2_tzRJOyDhzG3aGmb_uOwd3gL_NSe_l HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Host: localhost:8080</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-11-29 18:26:32 +0900
+Last updated 2023-12-06 14:54:30 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

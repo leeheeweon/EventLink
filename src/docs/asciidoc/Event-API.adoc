@@ -1,0 +1,4 @@
+[[Event-API]]
+== Event API
+=== Event List
+operation::event-list[snippets='http-request,response-body']

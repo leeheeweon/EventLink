@@ -1,20 +1,13 @@
 package com.project.eventlink.service;
 
 import com.project.eventlink.common.BaseSpringBootTest;
-import com.project.eventlink.entity.Member;
-import com.project.eventlink.entity.Role;
 import com.project.eventlink.event.doamin.Event;
 import com.project.eventlink.event.model.EventResponse;
 import com.project.eventlink.event.service.EventService;
-import com.project.eventlink.member.dto.JoinForm;
-import com.project.eventlink.member.service.MemberService;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.TestingAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
 

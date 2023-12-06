@@ -32,16 +32,15 @@ class MemberControllerTest extends BaseSpringBootTest {
     @Test
     void findMemberById() throws Exception {
         //given
-        given(memberService.loadUserByUsername(any()))
-                .willReturn(new Member("id", "123", Role.USER));
 
         //when
+
+        //then
         mockMvc.perform(get("/login"))
                 .andDo(print())
-                .andDo(document("member-login",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint())))
-                .andExpect(status().isOk()); //then
+                .andDo(document("member-login"))
+                .andExpect(view().name("views/login"))
+                .andExpect(status().isOk());
 
         //TODO request & response 수정
     }

@@ -19,7 +19,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.*;
 
-public class JwtProviderTest extends BaseSpringBootTest {
+class JwtProviderTest extends BaseSpringBootTest {
 
     @Autowired
     private TokenProvider provider;

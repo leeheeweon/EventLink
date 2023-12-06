@@ -6,11 +6,13 @@ import com.project.eventlink.event.model.mapper.EventMapper;
 import com.project.eventlink.event.repository.EventRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
