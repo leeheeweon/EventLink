@@ -24,13 +24,15 @@ public class BaseSpringBootTest {
     @Autowired
     protected MockMvc mockMvc;
 
+    static protected Member testMember;
+
     @BeforeAll
     static void init() {
         JoinForm joinForm = new JoinForm();
         joinForm.setUserId("a");
         joinForm.setPassword("1");
         joinForm.setRole(Role.USER);
-        Member testMember = Member.createUserByJoinForm(joinForm);
+        testMember = Member.createUserByJoinForm(joinForm);
 
         Authentication authentication = new TestingAuthenticationToken(testMember, "password");
         SecurityContextHolder.getContext().setAuthentication(authentication);
