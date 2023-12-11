@@ -1,6 +1,6 @@
 package com.project.eventlink.config.jwt;
 
-import com.project.eventlink.entity.Member;
+import com.project.eventlink.member.domain.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;
