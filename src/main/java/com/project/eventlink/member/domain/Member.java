@@ -1,5 +1,13 @@
-package com.project.eventlink.entity;
+package com.project.eventlink.member.domain;
 
+import com.project.eventlink.entity.Address;
+import com.project.eventlink.entity.Cart;
+import com.project.eventlink.entity.ChatRoom;
+import com.project.eventlink.entity.Item;
+import com.project.eventlink.entity.Order;
+import com.project.eventlink.entity.Reservation;
+import com.project.eventlink.entity.Review;
+import com.project.eventlink.entity.Role;
 import com.project.eventlink.event.doamin.Event;
 import com.project.eventlink.member.dto.JoinForm;
 import jakarta.persistence.*;
@@ -81,11 +89,15 @@ public class Member extends BCryptPasswordEncoder  implements UserDetails {
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>();
 
-
-    public Member(String userId, String password, Role role) {
-        this.memberId = userId;
-        this.password = encode(password);
-        this.role = role;
+    public Member(JoinForm joinForm) {
+        this.memberId = joinForm.getUserId();
+        this.password = encode(joinForm.getPassword());
+        this.age = joinForm.getAge();
+        this.name = joinForm.getName();
+        this.address = joinForm.getAddress();
+        this.phone = joinForm.getPhone();
+        this.email = joinForm.getEmail();
+        this.role = joinForm.getRole();
     }
 
     @Override
@@ -95,7 +107,7 @@ public class Member extends BCryptPasswordEncoder  implements UserDetails {
 
 
     public static Member createUserByJoinForm(JoinForm joinForm) {
-        return new Member(joinForm.getUserId(), joinForm.getPassword(), joinForm.getRole());
+        return new Member(joinForm);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.project.eventlink.config;
 
-import com.project.eventlink.entity.Member;
+import com.project.eventlink.member.domain.Member;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;

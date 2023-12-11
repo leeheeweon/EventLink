@@ -1,7 +1,7 @@
 package com.project.eventlink.common;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.eventlink.entity.Member;
+import com.project.eventlink.member.domain.Member;
 import com.project.eventlink.entity.Role;
 import com.project.eventlink.member.dto.JoinForm;
 import org.junit.jupiter.api.BeforeAll;
