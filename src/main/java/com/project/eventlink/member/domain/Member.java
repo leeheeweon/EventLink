@@ -1,7 +1,7 @@
 package com.project.eventlink.member.domain;
 
 import com.project.eventlink.entity.Address;
-import com.project.eventlink.entity.Cart;
+import com.project.eventlink.cart.domain.Cart;
 import com.project.eventlink.entity.ChatRoom;
 import com.project.eventlink.entity.Item;
 import com.project.eventlink.entity.Order;
@@ -33,7 +33,7 @@ import java.util.List;
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "MEMBER")
-public class Member extends BCryptPasswordEncoder  implements UserDetails {
+public class Member extends BCryptPasswordEncoder implements UserDetails {
 
     @Id
     @Column(name = "MEMBER_ID")

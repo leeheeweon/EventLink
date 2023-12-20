@@ -1,5 +1,6 @@
 package com.project.eventlink.entity;
 
+import com.project.eventlink.cart.domain.CartItem;
 import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -23,9 +24,9 @@ public class Item extends BasicEntity{
     @Column(name = "NAME")
     private String name;
     @Column(name = "PRICE")
-    private Integer price;
+    private int price;
     @Column(name = "STOCK_QUANTITY")
-    private Integer stockQuantity;
+    private int stockQuantity;
     @Column(name = "DETAIL")
     private String detail;
     @Enumerated(EnumType.STRING)
@@ -35,9 +36,8 @@ public class Item extends BasicEntity{
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CART_ID")
-    private Cart cart;
+    @OneToMany(mappedBy = "item" )
+    private List<CartItem> cartItems = new ArrayList<>();
 
     @OneToMany(mappedBy = "item")
     private List<OrderItem> orderItems = new ArrayList<>();
