@@ -1,7 +1,7 @@
 package com.project.eventlink.cart.domain;
 
 import com.project.eventlink.entity.BasicEntity;
-import com.project.eventlink.entity.Item;
+import com.project.eventlink.item.domain.Item;
 import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

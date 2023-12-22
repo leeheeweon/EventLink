@@ -1,6 +1,7 @@
-package com.project.eventlink.entity;
+package com.project.eventlink.item.domain;
 
 import com.project.eventlink.cart.domain.CartItem;
+import com.project.eventlink.entity.*;
 import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -16,7 +17,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "ITEM")
-public class Item extends BasicEntity{
+public class Item extends BasicEntity {
     @Id
     @Column(name = "ITEM_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
