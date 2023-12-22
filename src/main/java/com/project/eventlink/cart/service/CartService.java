@@ -47,7 +47,9 @@ public class CartService {
         } else {
             CartItem cartItem = CartItem.createCartItem(cart, item, cartItemForm.getCount());
             cartItemRepository.save(cartItem);
-            return cartItem.getCartItemId();*/
+            return cartItem.getCartItemId();
         }
+         */
+        return 0L;
     }
 }
