@@ -5,11 +5,15 @@ import com.project.eventlink.cart.domain.CartItem;
 import com.project.eventlink.cart.dto.CartItemForm;
 import com.project.eventlink.cart.repository.CartItemRepository;
 import com.project.eventlink.cart.repository.CartRepository;
+import com.project.eventlink.item.domain.Item;
+import com.project.eventlink.item.repository.ItemRepository;
 import com.project.eventlink.member.domain.Member;
 import com.project.eventlink.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -18,6 +22,7 @@ public class CartService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final MemberRepository memberRepository;
+    private final ItemRepository itemRepository;
 
     public Long addCart(CartItemForm cartItemForm, String memberId) {
         //TODO
@@ -31,15 +36,16 @@ public class CartService {
         // 8. 카트아이템이 있으면 addCount 호출
         // 9. 카트아이템이 없으면 save
 
-        /*Member member = memberRepository.findByMemberId(memberId);
+        Member member = memberRepository.findByMemberId(memberId);
         Cart cart = cartRepository.findByMemberId(memberId);
+        Item item = itemRepository.findByItemId(cartItemForm.getItemId());
 
         if (cart == null) {
             cart = Cart.createCart(member);
             cartRepository.save(cart);
         }
 
-        CartItem savedCartItem = cartItemRepository.findByCartIdAndItemId(cart.getCartId(), item.getId);
+        CartItem savedCartItem = cartItemRepository.findByCartIdAndItemId(cart.getCartId(), item.getItemId());
 
         if (savedCartItem != null) {
             savedCartItem.addCount(cartItemForm.getCount());
@@ -47,7 +53,12 @@ public class CartService {
         } else {
             CartItem cartItem = CartItem.createCartItem(cart, item, cartItemForm.getCount());
             cartItemRepository.save(cartItem);
-            return cartItem.getCartItemId();*/
+            return cartItem.getCartItemId();
         }
+    }
+
+    public List<CartItem> cartItemList(String memberId) {
+        Cart cart = cartRepository.findByMemberId(memberId);
+        return cart.getCartItems();
     }
 }

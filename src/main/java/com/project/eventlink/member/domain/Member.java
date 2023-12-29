@@ -3,7 +3,7 @@ package com.project.eventlink.member.domain;
 import com.project.eventlink.entity.Address;
 import com.project.eventlink.cart.domain.Cart;
 import com.project.eventlink.entity.ChatRoom;
-import com.project.eventlink.entity.Item;
+import com.project.eventlink.item.domain.Item;
 import com.project.eventlink.entity.Order;
 import com.project.eventlink.entity.Reservation;
 import com.project.eventlink.entity.Review;
