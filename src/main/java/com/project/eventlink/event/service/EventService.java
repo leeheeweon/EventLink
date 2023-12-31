@@ -9,6 +9,6 @@ public interface EventService {
 
     List<EventResponse> getList();
 
-    String addEvent(Event event);
+    Long addEvent(Event event);
 
 }

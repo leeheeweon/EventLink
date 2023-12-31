@@ -20,7 +20,8 @@ public class CartController {
     @GetMapping("/cart")
     public CommonResponse eventList() {
 
-        return CommonResponse.toResponse(HttpStatus.OK, eventList);
+//        return CommonResponse.toResponse(HttpStatus.OK, eventList);
+        return CommonResponse.toResponse(HttpStatus.OK, null);
     }
 
 }

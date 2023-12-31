@@ -1,4 +1,6 @@
 [[Event-API]]
 == Event API
+Event 와 관련된 API 목록 입니다.
+[[EVENT-ADD]]
 === Event List
 operation::event-list[snippets='http-request,response-body']

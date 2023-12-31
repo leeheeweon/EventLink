@@ -2,8 +2,8 @@ package com.project.eventlink.event.doamin;
 
 import com.project.eventlink.entity.BasicEntity;
 import com.project.eventlink.entity.Image;
-import com.project.eventlink.member.domain.Member;
 import com.project.eventlink.entity.ReservationEvent;
+import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
 

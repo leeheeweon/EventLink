@@ -2,6 +2,7 @@ package com.project.eventlink.item.controller;
 
 import com.project.eventlink.common.model.CommonResponse;
 import com.project.eventlink.item.model.CreateItemRequestModel;
+import com.project.eventlink.item.model.DeleteItemRequestModel;
 import com.project.eventlink.item.model.UpdateItemRequestModel;
 import com.project.eventlink.item.service.ItemService;
 import lombok.RequiredArgsConstructor;
@@ -15,23 +16,29 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @GetMapping("/list")
-    public CommonResponse itemList() {
-        return CommonResponse.toResponse(HttpStatus.OK, itemService.getItemList());
+    @GetMapping("/list/{keyword}")
+    public CommonResponse itemList(@PathVariable String keyword) {
+        return CommonResponse.toResponse(HttpStatus.OK, itemService.getItemList(keyword));
+    }
+
+    @GetMapping("/detail/{itemId}")
+    public CommonResponse itemDetail(@PathVariable Long itemId) {
+        return CommonResponse.toResponse(HttpStatus.OK, itemService.getItemDetail(itemId));
     }
 
     @PostMapping("/add")
     public CommonResponse addItem(@RequestHeader("authorization") String authorization, CreateItemRequestModel createItemRequestModel) {
-        return CommonResponse.toResponse(HttpStatus.CREATED, null);
+        return CommonResponse.toResponse(HttpStatus.CREATED, itemService.addItem(createItemRequestModel));
     }
 
     @PutMapping("/update")
     public CommonResponse updateItem(@RequestHeader("authorization") String authorization, UpdateItemRequestModel updateItemRequestModel) {
-        return CommonResponse.toResponse(HttpStatus.OK, null);
+        return CommonResponse.toResponse(HttpStatus.OK, itemService.updateItem(updateItemRequestModel));
     }
 
     @DeleteMapping("/delete")
-    public CommonResponse updateItem(@RequestHeader("authorization") String authorization, Long id) {
-        return CommonResponse.toResponse(HttpStatus.OK, null);
+    public CommonResponse deleteItem(@RequestHeader("authorization") String authorization, DeleteItemRequestModel deleteItemRequestModel) {
+        itemService.deleteItem(deleteItemRequestModel);
+        return CommonResponse.toResponse(HttpStatus.OK, deleteItemRequestModel.id());
     }
 }
