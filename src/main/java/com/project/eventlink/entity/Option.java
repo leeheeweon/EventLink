@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "OPTION")
-public class Option extends BasicEntity{
+public class Option extends BasicEntity {
     @Id
     @Column(name = "OPTION_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Reservation extends BasicEntity{
+public class Reservation extends BasicEntity {
     @Id
     @Column(name = "RESERVATION_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

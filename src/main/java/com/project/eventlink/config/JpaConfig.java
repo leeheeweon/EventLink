@@ -16,11 +16,11 @@ import java.util.Optional;
 public class JpaConfig {
     @Bean
     public AuditorAware<String> auditorAware() {
-            return () -> Optional.ofNullable(SecurityContextHolder.getContext())
-                    .map(SecurityContext::getAuthentication)
-                    .map(Authentication::getPrincipal)
-                    .map(Member.class::cast)
-                    .map(Member::getMemberId);
+        return () -> Optional.ofNullable(SecurityContextHolder.getContext())
+                .map(SecurityContext::getAuthentication)
+                .map(Authentication::getPrincipal)
+                .map(Member.class::cast)
+                .map(Member::getMemberId);
     }
 }
 

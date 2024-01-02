@@ -37,7 +37,7 @@ public class CartService {
         // 9. 카트아이템이 없으면 save
 
         Member member = memberRepository.findByMemberId(memberId);
-        Cart cart = cartRepository.findByMemberId(memberId);
+        Cart cart = cartRepository.findByMemberMemberId(memberId);
         Item item = itemRepository.findByItemId(cartItemForm.getItemId());
 
         if (cart == null) {
@@ -58,7 +58,7 @@ public class CartService {
     }
 
     public List<CartItem> cartItemList(String memberId) {
-        Cart cart = cartRepository.findByMemberId(memberId);
+        Cart cart = cartRepository.findByMemberMemberId(memberId);
         return cart.getCartItems();
     }
 }
