@@ -3,12 +3,13 @@ package com.project.eventlink.member.domain;
 import com.project.eventlink.entity.Address;
 import com.project.eventlink.cart.domain.Cart;
 import com.project.eventlink.entity.ChatRoom;
+import com.project.eventlink.item.domain.Item;
+
 import com.project.eventlink.entity.Order;
 import com.project.eventlink.entity.Reservation;
 import com.project.eventlink.entity.Review;
 import com.project.eventlink.entity.Role;
 import com.project.eventlink.event.doamin.Event;
-import com.project.eventlink.item.domain.Item;
 import com.project.eventlink.member.dto.JoinForm;
 import jakarta.persistence.*;
 import lombok.*;

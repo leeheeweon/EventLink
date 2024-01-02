@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "CHAT")
-public class Chat extends BasicEntity{
+public class Chat extends BasicEntity {
     @Id
     @Column(name = "CHAT_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
