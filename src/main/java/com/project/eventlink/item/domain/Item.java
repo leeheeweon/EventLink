@@ -2,20 +2,18 @@ package com.project.eventlink.item.domain;
 
 import com.project.eventlink.cart.domain.CartItem;
 import com.project.eventlink.entity.*;
-
+import com.project.eventlink.item.model.UpdateItemRequestModel;
 import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "ITEM")
 public class Item extends BasicEntity {
@@ -49,4 +47,12 @@ public class Item extends BasicEntity {
 
     @OneToMany(mappedBy = "item")
     private List<Image> images = new ArrayList<>();
+
+    public void updateItem(UpdateItemRequestModel updateItemRequestModel) {
+        this.name = updateItemRequestModel.name();
+        this.price = updateItemRequestModel.price();
+        this.stockQuantity = updateItemRequestModel.quantity();
+        this.detail = updateItemRequestModel.detail();
+        this.sellStatus = SellStatus.valueOf(updateItemRequestModel.sellStatus().toUpperCase());
+    }
 }

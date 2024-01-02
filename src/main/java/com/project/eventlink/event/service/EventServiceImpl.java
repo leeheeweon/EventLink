@@ -26,7 +26,7 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public String addEvent(Event event) {
+    public Long addEvent(Event event) {
         return eventRepository.save(event);
     }
 }

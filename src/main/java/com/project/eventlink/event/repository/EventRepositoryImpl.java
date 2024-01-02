@@ -18,7 +18,7 @@ public class EventRepositoryImpl implements EventRepository {
     }
 
     @Override
-    public String save(Event event) {
-        return eventJpaRepository.save(event).getName();
+    public Long save(Event event) {
+        return eventJpaRepository.save(event).getEventId();
     }
 }

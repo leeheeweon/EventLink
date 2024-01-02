@@ -3,8 +3,8 @@ package com.project.eventlink.jwt;
 import com.project.eventlink.common.BaseSpringBootTest;
 import com.project.eventlink.config.jwt.JwtProperties;
 import com.project.eventlink.config.jwt.TokenProvider;
-import com.project.eventlink.member.domain.Member;
 import com.project.eventlink.entity.Role;
+import com.project.eventlink.member.domain.Member;
 import com.project.eventlink.member.dto.JoinForm;
 import com.project.eventlink.member.repository.MemberRepository;
 import io.jsonwebtoken.Jwts;
@@ -16,7 +16,7 @@ import java.time.Duration;
 import java.util.Date;
 import java.util.Map;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class JwtProviderTest extends BaseSpringBootTest {
 
@@ -84,7 +84,7 @@ class JwtProviderTest extends BaseSpringBootTest {
     @DisplayName("아이디 검증")
     void getMemberId() {
         //given
-        String memberId= "test";
+        String memberId = "test";
 
         String token = JwtFactory.builder()
                 .claims(Map.of("id", memberId))

@@ -20,9 +20,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class MemberControllerTest extends BaseSpringBootTest {
 
-    @MockBean
-    private MemberService memberService;
-
 
     @Test
     void findMemberById() throws Exception {
@@ -103,7 +100,7 @@ class MemberControllerTest extends BaseSpringBootTest {
                         .with(csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(joinForm))
-                        )
+                )
                 .andExpect(status().isOk())
                 .andDo(print());
     }
@@ -136,7 +133,7 @@ class MemberControllerTest extends BaseSpringBootTest {
 
         //Then
         mockMvc.perform(get("/joinSuccess")
-                        .param("userId","test"))
+                        .param("userId", "test"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("views/joinSuccess"))
                 .andExpect(model().attributeExists("userId"))

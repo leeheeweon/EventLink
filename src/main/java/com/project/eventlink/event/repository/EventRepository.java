@@ -8,5 +8,5 @@ public interface EventRepository {
 
     List<Event> findAll();
 
-    String save(Event event);
+    Long save(Event event);
 }
