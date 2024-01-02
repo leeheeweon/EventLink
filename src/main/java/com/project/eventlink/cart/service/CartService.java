@@ -45,7 +45,7 @@ public class CartService {
             cartRepository.save(cart);
         }
 
-        CartItem savedCartItem = cartItemRepository.findByCartIdAndItemId(cart.getCartId(), item.getItemId());
+        CartItem savedCartItem = cartItemRepository.findByCartCartIdAndItemItemId(cart.getCartId(), item.getItemId());
 
         if (savedCartItem != null) {
             savedCartItem.addCount(cartItemForm.getCount());
