@@ -33,7 +33,7 @@ class CartServiceImplTest extends BaseSpringBootTest {
          */
 
         //Given
-        String memberId = "a";
+        String memberId = "test";
         Long addedItemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail"));
         CreateCartRequestModel cartItemForm = new CreateCartRequestModel(addedItemId, 1);
 

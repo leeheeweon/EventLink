@@ -71,24 +71,24 @@ public class Member extends BCryptPasswordEncoder implements UserDetails {
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Cart cart;
-
-    @OneToMany(mappedBy = "member")
-    private List<Review> reviews = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<ChatRoom> chatRooms = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<Event> events = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<Reservation> reservations = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<Item> items = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "member")
+//    private List<Review> reviews = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "member")
+//    private List<ChatRoom> chatRooms = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "member")
+//    private List<Event> events = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "member")
+//    private List<Reservation> reservations = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "member")
+//    private List<Item> items = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "member")
+//    private List<Order> orders = new ArrayList<>();
 
     public Member(JoinForm joinForm) {
         this.memberId = joinForm.getUserId();
