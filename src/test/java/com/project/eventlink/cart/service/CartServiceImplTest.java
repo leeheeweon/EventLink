@@ -1,7 +1,7 @@
 package com.project.eventlink.cart.service;
 
 import com.project.eventlink.cart.domain.Cart;
-import com.project.eventlink.cart.dto.CartItemForm;
+import com.project.eventlink.cart.model.CreateCartRequestModel;
 import com.project.eventlink.cart.repository.CartRepository;
 import com.project.eventlink.common.BaseSpringBootTest;
 import com.project.eventlink.item.model.CreateItemRequestModel;
@@ -12,9 +12,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-class CartServiceTest extends BaseSpringBootTest {
+class CartServiceImplTest extends BaseSpringBootTest {
     @Autowired
-    CartService cartService;
+    CartServiceImpl cartServiceImpl;
     @Autowired
     CartRepository cartRepository;
 
@@ -33,13 +33,12 @@ class CartServiceTest extends BaseSpringBootTest {
          */
 
         //Given
-        CartItemForm cartItemForm = new CartItemForm();
         String memberId = "a";
         Long addedItemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail"));
-        cartItemForm.setItemId(addedItemId);
+        CreateCartRequestModel cartItemForm = new CreateCartRequestModel(addedItemId, 1);
 
         //When
-        Long cartId = cartService.addCart(cartItemForm, memberId);
+        Long cartId = cartServiceImpl.addCart(cartItemForm, memberId);
         System.out.println("cartId = " + cartId);
 
         Cart cart = cartRepository.findById(cartId).get();
