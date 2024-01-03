@@ -10,4 +10,6 @@ public interface CartService {
     Long addCart(CreateCartRequestModel cartItemForm, String memberId);
 
     List<CartItem> cartItemList(String memberId);
+
+    void deleteCartItem(Long cartItemId);
 }
