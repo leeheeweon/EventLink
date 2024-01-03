@@ -15,10 +15,9 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping("/cart")
-    public CommonResponse eventList() {
+    public CommonResponse cartList(String memberId) {
 
-//        return CommonResponse.toResponse(HttpStatus.OK, eventList);
-        return CommonResponse.toResponse(HttpStatus.OK, null);
+        return CommonResponse.toResponse(HttpStatus.OK, cartService.cartItemList(memberId));
     }
 
 }

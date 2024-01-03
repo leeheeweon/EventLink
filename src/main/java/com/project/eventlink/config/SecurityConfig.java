@@ -32,7 +32,7 @@ public class SecurityConfig {
                         .csrfTokenRepository(new HttpSessionCsrfTokenRepository())
                 )
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/", "/login", "/joinUser","/joinSelect", "/joinProvider", "/joinSuccess","css/**","images/**","js/**", "docs/**").permitAll()
+                        .requestMatchers("/", "/login", "/joinUser", "/joinSelect", "/joinProvider", "/joinSuccess", "css/**", "images/**", "js/**", "docs/**").permitAll()
                         .requestMatchers("/user/**").hasAuthority("USER")
                         .requestMatchers("/provider/**").hasAuthority("PROVIDER")
                         .anyRequest().authenticated()

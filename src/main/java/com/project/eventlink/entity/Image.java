@@ -13,7 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "IMAGE")
-public class Image extends BasicEntity{
+public class Image extends BasicEntity {
     @Id
     @Column(name = "IMAGE_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -36,7 +36,7 @@ public class Item extends BasicEntity {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "item" )
+    @OneToMany(mappedBy = "item")
     private List<CartItem> cartItems = new ArrayList<>();
 
     @OneToMany(mappedBy = "item")
