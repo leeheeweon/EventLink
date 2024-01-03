@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
-class CartServiceImplTest extends BaseSpringBootTest {
+class CartServiceTest extends BaseSpringBootTest {
     @Autowired
     CartService cartService;
     @Autowired
