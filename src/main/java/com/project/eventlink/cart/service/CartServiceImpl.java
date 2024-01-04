@@ -50,4 +50,8 @@ public class CartServiceImpl implements CartService {
         Cart cart = cartRepository.findByMemberMemberId(memberId);
         return cart.getCartItems();
     }
+
+    public void deleteCartItem(Long cartItemId) {
+        cartItemRepository.deleteById(cartItemId);
+    }
 }
