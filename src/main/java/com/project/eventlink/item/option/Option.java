@@ -1,14 +1,12 @@
-package com.project.eventlink.entity;
+package com.project.eventlink.item.option;
 
+import com.project.eventlink.entity.BasicEntity;
 import com.project.eventlink.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -26,7 +24,4 @@ public class Option extends BasicEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
-
-    @OneToMany(mappedBy = "option")
-    private List<OptionDetail> optionDetails = new ArrayList<>();
 }

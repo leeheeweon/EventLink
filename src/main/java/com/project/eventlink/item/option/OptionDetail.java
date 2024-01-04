@@ -1,5 +1,6 @@
-package com.project.eventlink.entity;
+package com.project.eventlink.item.option;
 
+import com.project.eventlink.entity.BasicEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;

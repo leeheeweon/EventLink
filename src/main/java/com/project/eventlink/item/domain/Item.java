@@ -3,6 +3,7 @@ package com.project.eventlink.item.domain;
 import com.project.eventlink.cart.domain.CartItem;
 import com.project.eventlink.entity.*;
 import com.project.eventlink.item.model.UpdateItemRequestModel;
+import com.project.eventlink.item.option.Option;
 import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,18 +36,6 @@ public class Item extends BasicEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
-    @OneToMany(mappedBy = "item")
-    private List<CartItem> cartItems = new ArrayList<>();
-
-    @OneToMany(mappedBy = "item")
-    private List<OrderItem> orderItems = new ArrayList<>();
-
-    @OneToMany(mappedBy = "item")
-    private List<Option> options = new ArrayList<>();
-
-    @OneToMany(mappedBy = "item")
-    private List<Image> images = new ArrayList<>();
 
     public void updateItem(UpdateItemRequestModel updateItemRequestModel) {
         this.name = updateItemRequestModel.name();
