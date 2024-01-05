@@ -1,5 +1,6 @@
 package com.project.eventlink.entity;
 
+import com.project.eventlink.event.doamin.Event;
 import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
@@ -28,5 +29,9 @@ public class Review extends BasicEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EVENT_ID")
+    private Event event;
 
 }

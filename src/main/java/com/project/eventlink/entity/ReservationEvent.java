@@ -22,5 +22,9 @@ public class ReservationEvent extends BasicEntity {
     @JoinColumn(name = "EVENT_ID")
     private Event event;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "RESERVATION_ID")
+    private Reservation reservation;
+
 
 }

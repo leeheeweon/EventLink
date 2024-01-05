@@ -27,7 +27,4 @@ public class Reservation extends BasicEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
-
-    @OneToOne(mappedBy = "reservation", fetch = FetchType.LAZY)
-    private ChatRoom chatRoom;
 }
