@@ -1,15 +1,11 @@
 package com.project.eventlink.item.domain;
 
-import com.project.eventlink.cart.domain.CartItem;
-import com.project.eventlink.entity.*;
+import com.project.eventlink.entity.BasicEntity;
+import com.project.eventlink.entity.SellStatus;
 import com.project.eventlink.item.model.UpdateItemRequestModel;
-import com.project.eventlink.item.option.Option;
 import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
