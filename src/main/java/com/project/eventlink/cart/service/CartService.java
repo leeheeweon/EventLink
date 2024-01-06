@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface CartService {
 
-    Long addCart(CreateCartRequestModel cartItemForm, String memberId);
+    Long addCart(CreateCartRequestModel createCartRequestModel);
 
     List<CartItem> cartItemList(String memberId);
 

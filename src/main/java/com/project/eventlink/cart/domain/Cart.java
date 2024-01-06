@@ -14,6 +14,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,6 +26,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "CART")
 public class Cart extends BasicEntity {
@@ -38,12 +42,6 @@ public class Cart extends BasicEntity {
 
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems = new ArrayList<>();
-
-    public static Cart createCart(Member member) {
-        Cart cart = new Cart();
-        cart.setMember(member);
-        return cart;
-    }
 
     public long totalPrice() {
         long totalPrice = 0;
