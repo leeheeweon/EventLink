@@ -1,18 +1,25 @@
 package com.project.eventlink.member.domain;
 
-import com.project.eventlink.entity.Address;
 import com.project.eventlink.cart.domain.Cart;
-import com.project.eventlink.entity.ChatRoom;
-import com.project.eventlink.item.domain.Item;
-
-import com.project.eventlink.entity.Order;
-import com.project.eventlink.entity.Reservation;
-import com.project.eventlink.entity.Review;
+import com.project.eventlink.entity.Address;
 import com.project.eventlink.entity.Role;
-import com.project.eventlink.event.doamin.Event;
 import com.project.eventlink.member.dto.JoinForm;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -24,7 +31,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Getter
@@ -71,24 +77,6 @@ public class Member extends BCryptPasswordEncoder implements UserDetails {
 
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY)
     private Cart cart;
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Review> reviews = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<ChatRoom> chatRooms = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Event> events = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Reservation> reservations = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Item> items = new ArrayList<>();
-//
-//    @OneToMany(mappedBy = "member")
-//    private List<Order> orders = new ArrayList<>();
 
     public Member(JoinForm joinForm) {
         this.memberId = joinForm.getUserId();
