@@ -6,13 +6,13 @@ import com.project.eventlink.exception.ExceptionType;
 import com.project.eventlink.item.domain.Item;
 import com.project.eventlink.item.model.CreateItemRequestModel;
 import com.project.eventlink.item.model.DeleteItemRequestModel;
-import com.project.eventlink.item.model.FindItemResponseModel;
+import com.project.eventlink.item.model.FindItemModel;
 import com.project.eventlink.item.model.UpdateItemRequestModel;
 import com.project.eventlink.item.model.mapper.ItemMapper;
 import com.project.eventlink.item.option.domain.Option;
 import com.project.eventlink.item.option.domain.OptionDetail;
-import com.project.eventlink.item.option.model.CreateOptionDetailRequestModel;
-import com.project.eventlink.item.option.model.CreateOptionRequestModel;
+import com.project.eventlink.item.option.model.FindOptionDetailModel;
+import com.project.eventlink.item.option.model.FindOptionModel;
 import com.project.eventlink.item.option.repository.OptionDetailRepository;
 import com.project.eventlink.item.option.repository.OptionRepository;
 import com.project.eventlink.item.repository.ItemRepository;
@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -36,9 +37,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<FindItemResponseModel> getItemList(String keyword) {
+    public List<FindItemModel> getItemList(String keyword) {
 
-        List<FindItemResponseModel> itemList = itemRepository.searchItemList(keyword);
+        List<FindItemModel> itemList = itemRepository.searchItemList(keyword);
         if (itemList.isEmpty()) {
             throw new CommonException(ExceptionType.ITEM_LIST_EMPTY);
         }
@@ -47,10 +48,22 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional(readOnly = true)
     @Override
-    public FindItemResponseModel getItemDetail(Long itemId) {
+    public FindItemModel getItemDetail(Long itemId) {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new CommonException(ExceptionType.ITEM_NOT_FOUND));
-        return itemMapper.toItemResponseModel(item);
+
+        List<Option> optionList = optionRepository.findByItemItemId(item.getItemId());
+
+        List<FindOptionModel> findOptionModels = optionList.isEmpty() ? null : optionList.stream()
+                .map(option -> new FindOptionModel(option.getOptionId(), option.getName(),
+                        optionDetailRepository.findOptionDetailByOptionOptionId(option.getOptionId())
+                                .stream()
+                                .map(itemMapper::toOptionDetailModel)
+                                .collect(Collectors.toList())))
+                .collect(Collectors.toList());
+
+        return new FindItemModel(item.getItemId(), item.getName(), item.getPrice(),
+                item.getStockQuantity(), item.getDetail(), findOptionModels);
     }
 
     @Transactional

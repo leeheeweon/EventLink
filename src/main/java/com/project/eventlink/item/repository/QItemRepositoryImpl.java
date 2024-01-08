@@ -1,8 +1,7 @@
 package com.project.eventlink.item.repository;
 
-import com.project.eventlink.item.domain.Item;
 import com.project.eventlink.item.domain.QItem;
-import com.project.eventlink.item.model.FindItemResponseModel;
+import com.project.eventlink.item.model.FindItemModel;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +18,8 @@ public class QItemRepositoryImpl implements QItemRepository {
     private final QItem item = QItem.item;
 
     @Override
-    public List<FindItemResponseModel> searchItemList(String keyword) {
-        return queryFactory.select(Projections.constructor(FindItemResponseModel.class,
+    public List<FindItemModel> searchItemList(String keyword) {
+        return queryFactory.select(Projections.constructor(FindItemModel.class,
                         item.itemId,
                         item.name,
                         item.price,
