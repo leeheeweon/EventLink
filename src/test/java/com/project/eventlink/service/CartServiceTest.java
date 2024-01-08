@@ -39,7 +39,7 @@ class CartServiceTest extends BaseSpringBootTest {
          */
 
         //Given
-        Long addedItemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail"));
+        Long addedItemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail", null));
         CreateCartRequestModel cartItemForm = new CreateCartRequestModel("test", addedItemId, 1);
 
         //When
@@ -56,7 +56,7 @@ class CartServiceTest extends BaseSpringBootTest {
     @DisplayName("장바구니 삭제")
     void deleteCartItem() {
         //Given
-        Long addedItemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail"));
+        Long addedItemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail", null));
         CreateCartRequestModel cartItemForm = new CreateCartRequestModel("a", addedItemId, 1);
 
         //When
