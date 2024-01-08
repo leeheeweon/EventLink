@@ -1,19 +1,17 @@
-package com.project.eventlink.item.option;
+package com.project.eventlink.item.option.domain;
 
 import com.project.eventlink.entity.BasicEntity;
 import com.project.eventlink.item.domain.Item;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
-@Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "OPTION")
-public class Option extends BasicEntity {
+public class Option {
     @Id
     @Column(name = "OPTION_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)

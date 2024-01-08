@@ -9,15 +9,20 @@ import com.project.eventlink.item.model.DeleteItemRequestModel;
 import com.project.eventlink.item.model.FindItemResponseModel;
 import com.project.eventlink.item.model.UpdateItemRequestModel;
 import com.project.eventlink.item.model.mapper.ItemMapper;
+import com.project.eventlink.item.option.domain.Option;
+import com.project.eventlink.item.option.domain.OptionDetail;
+import com.project.eventlink.item.option.model.CreateOptionDetailRequestModel;
+import com.project.eventlink.item.option.model.CreateOptionRequestModel;
+import com.project.eventlink.item.option.repository.OptionDetailRepository;
+import com.project.eventlink.item.option.repository.OptionRepository;
 import com.project.eventlink.item.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Slf4j
 @Service
@@ -25,6 +30,8 @@ import java.util.stream.Collectors;
 public class ItemServiceImpl implements ItemService {
 
     private final ItemRepository itemRepository;
+    private final OptionRepository optionRepository;
+    private final OptionDetailRepository optionDetailRepository;
     private final ItemMapper itemMapper;
 
     @Transactional(readOnly = true)
@@ -57,6 +64,22 @@ public class ItemServiceImpl implements ItemService {
                 .detail(createItemRequestModel.detail())
                 .sellStatus(SellStatus.OPEN)
                 .build();
+
+        if (Objects.nonNull(createItemRequestModel.optionRequestModelList())) {
+            createItemRequestModel.optionRequestModelList().forEach(createOptionRequestModel -> {
+                Option option = Option.builder().item(item).name(createOptionRequestModel.name()).build();
+                optionRepository.save(option);
+
+                createOptionRequestModel.createOptionDetailRequestModels().stream()
+                        .map(detailRequestModel ->
+                                OptionDetail.builder()
+                                        .option(option)
+                                        .name(detailRequestModel.name())
+                                        .price(detailRequestModel.price())
+                                        .stockQuantity(detailRequestModel.quantity())
+                                        .build()).forEach(optionDetailRepository::save);
+            });
+        }
 
         return itemRepository.save(item).getItemId();
     }
