@@ -4,6 +4,6 @@ public record CreateReviewRequestModel(String memberId,
                                        Long itemId,
                                        Long eventId,
                                        String comment,
-                                       int star) {
+                                       Integer star) {
 }
 

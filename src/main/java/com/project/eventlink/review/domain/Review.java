@@ -4,17 +4,23 @@ import com.project.eventlink.entity.BasicEntity;
 import com.project.eventlink.event.doamin.Event;
 import com.project.eventlink.item.domain.Item;
 import com.project.eventlink.member.domain.Member;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "REVIEW")
@@ -41,4 +47,12 @@ public class Review extends BasicEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
+
+    public void updateComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void updateStar(Integer star) {
+        this.star = star;
+    }
 }

@@ -44,8 +44,8 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void updateReview(UpdateReviewRequestModel updateReviewRequestModel) {
         Review review = reviewRepository.findByReviewId(updateReviewRequestModel.id());
-        review.setComment(updateReviewRequestModel.comment());
-        review.setStar(updateReviewRequestModel.star());
+        review.updateComment(updateReviewRequestModel.comment());
+        review.updateStar(updateReviewRequestModel.star());
     }
 
     @Override

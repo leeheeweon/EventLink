@@ -8,12 +8,13 @@ import com.project.eventlink.review.model.CreateReviewRequestModel;
 import com.project.eventlink.review.model.DeleteReviewRequestModel;
 import com.project.eventlink.review.model.UpdateReviewRequestModel;
 import com.project.eventlink.review.service.ReviewService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @Transactional
 class ReviewServiceTest extends BaseSpringBootTest {
@@ -36,7 +37,7 @@ class ReviewServiceTest extends BaseSpringBootTest {
         List<Review> reviews = reviewService.itemReviewList(itemId);
 
         //Then
-        reviews.forEach(review -> Assertions.assertThat(review.getReviewId()).isEqualTo(reviewId));
+        reviews.forEach(review -> assertThat(review.getReviewId()).isEqualTo(reviewId));
     }
 
     @Test
@@ -50,7 +51,7 @@ class ReviewServiceTest extends BaseSpringBootTest {
         reviewService.deleteReview(new DeleteReviewRequestModel(reviewId));
 
         //Then
-        Assertions.assertThat(reviewService.itemReviewList(itemId).size()).isEqualTo(0);
+        assertThat(reviewService.itemReviewList(itemId).size()).isEqualTo(0);
     }
 
     @Test
@@ -63,10 +64,9 @@ class ReviewServiceTest extends BaseSpringBootTest {
         //When
         reviewService.updateReview(new UpdateReviewRequestModel(reviewId, "update comment", 3));
         Review review = reviewService.itemReviewList(itemId).get(0);
-        System.out.println("review.getComment() = " + review.getComment());
 
         //Then
-        Assertions.assertThat(review.getComment()).isEqualTo("update comment");
+        assertThat(review.getComment()).isEqualTo("update comment");
     }
 
     @Test
@@ -80,10 +80,9 @@ class ReviewServiceTest extends BaseSpringBootTest {
 
         //When
         List<Review> reviews = reviewService.itemReviewList(itemId);
-        reviews.stream().forEach(review -> System.out.println("review.getComment() = " + review.getComment()));
 
         //Then
-        Assertions.assertThat(reviews.size()).isEqualTo(3);
+        assertThat(reviews.size()).isEqualTo(3);
 
     }
 }
