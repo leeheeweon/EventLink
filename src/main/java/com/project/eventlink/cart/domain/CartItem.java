@@ -12,6 +12,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,6 +21,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "CART_ITEM")
 public class CartItem extends BasicEntity {
@@ -36,14 +40,6 @@ public class CartItem extends BasicEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CART_ID")
     private Cart cart;
-
-    public static CartItem createCartItem(Cart cart, Item item, int count) {
-        CartItem cartItem = new CartItem();
-        cartItem.setCart(cart);
-        cartItem.setItem(item);
-        cartItem.setCount(count);
-        return cartItem;
-    }
 
     public void addCount(int count) {
         this.count += count;
