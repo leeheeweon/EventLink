@@ -1,10 +1,11 @@
-package com.project.eventlink.cart.service;
+package com.project.eventlink.service;
 
 import com.project.eventlink.cart.domain.Cart;
 import com.project.eventlink.cart.domain.CartItem;
 import com.project.eventlink.cart.model.CreateCartRequestModel;
 import com.project.eventlink.cart.repository.CartItemRepository;
 import com.project.eventlink.cart.repository.CartRepository;
+import com.project.eventlink.cart.service.CartService;
 import com.project.eventlink.common.BaseSpringBootTest;
 import com.project.eventlink.item.model.CreateItemRequestModel;
 import com.project.eventlink.item.service.ItemService;
@@ -38,17 +39,16 @@ class CartServiceTest extends BaseSpringBootTest {
          */
 
         //Given
-        String memberId = "test";
         Long addedItemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail", null));
-        CreateCartRequestModel cartItemForm = new CreateCartRequestModel(addedItemId, 1);
+        CreateCartRequestModel cartItemForm = new CreateCartRequestModel("test", addedItemId, 1);
 
         //When
-        Long cartId = cartService.addCart(cartItemForm, memberId);
+        Long cartId = cartService.addCart(cartItemForm);
         System.out.println("cartId = " + cartId);
 
         Cart cart = cartRepository.findById(cartId).get();
         //Then
-        Assertions.assertThat(cart.getMember().getMemberId()).isEqualTo(memberId);
+        Assertions.assertThat(cart.getMember().getMemberId()).isEqualTo("test");
     }
 
     @ParameterizedTest
@@ -56,12 +56,11 @@ class CartServiceTest extends BaseSpringBootTest {
     @DisplayName("장바구니 삭제")
     void deleteCartItem() {
         //Given
-        String memberId = "a";
         Long addedItemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail", null));
-        CreateCartRequestModel cartItemForm = new CreateCartRequestModel(addedItemId, 1);
+        CreateCartRequestModel cartItemForm = new CreateCartRequestModel("a", addedItemId, 1);
 
         //When
-        Long cartId = cartService.addCart(cartItemForm, memberId);
+        Long cartId = cartService.addCart(cartItemForm);
         CartItem cartItem = cartItemRepository.findByCartCartIdAndItemItemId(cartId, addedItemId);
         cartService.deleteCartItem(cartItem.getCartItemId());
 

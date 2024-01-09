@@ -1,6 +1,7 @@
-package com.project.eventlink.cart.domain;
+package com.project.eventlink.review.domain;
 
 import com.project.eventlink.entity.BasicEntity;
+import com.project.eventlink.event.doamin.Event;
 import com.project.eventlink.item.domain.Item;
 import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.Column;
@@ -10,47 +11,48 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "CART")
-public class Cart extends BasicEntity {
+@Table(name = "REVIEW")
+@AllArgsConstructor
+public class Review extends BasicEntity {
     @Id
-    @Column(name = "CART_ID")
+    @Column(name = "REVIEW_ID")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartId;
+    private Long reviewId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @Column(name = "COMMENT")
+    private String comment;
+    @Column(name = "STAR")
+    private Integer star;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    @OneToMany(mappedBy = "cart")
-    private List<CartItem> cartItems = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "EVENT_ID")
+    private Event event;
 
-    public long totalPrice() {
-        long totalPrice = 0;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ITEM_ID")
+    private Item item;
 
-        for (CartItem cartItem : cartItems) {
-            Item item = cartItem.getItem();
-            totalPrice += (long) item.getPrice() * cartItem.getCount();
-        }
+    public void updateComment(String comment) {
+        this.comment = comment;
+    }
 
-        return totalPrice;
+    public void updateStar(Integer star) {
+        this.star = star;
     }
 }

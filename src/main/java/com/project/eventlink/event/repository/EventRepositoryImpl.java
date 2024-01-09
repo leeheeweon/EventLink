@@ -21,4 +21,5 @@ public class EventRepositoryImpl implements EventRepository {
     public Long save(Event event) {
         return eventJpaRepository.save(event).getEventId();
     }
+
 }

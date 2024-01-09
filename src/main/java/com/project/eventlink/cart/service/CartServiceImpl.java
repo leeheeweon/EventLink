@@ -24,13 +24,15 @@ public class CartServiceImpl implements CartService {
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
-    public Long addCart(CreateCartRequestModel createCartRequestModel, String memberId) {
-        Member member = memberRepository.findByMemberId(memberId);
-        Cart cart = cartRepository.findByMemberMemberId(memberId);
+    public Long addCart(CreateCartRequestModel createCartRequestModel) {
+        Member member = memberRepository.findByMemberId(createCartRequestModel.memberId());
+        Cart cart = cartRepository.findByMemberMemberId(createCartRequestModel.memberId());
         Item item = itemRepository.findByItemId(createCartRequestModel.itemId());
 
         if (cart == null) {
-            cart = Cart.createCart(member);
+            cart = Cart.builder()
+                    .member(member)
+                    .build();
             cartRepository.save(cart);
         }
 
@@ -40,7 +42,11 @@ public class CartServiceImpl implements CartService {
             savedCartItem.addCount(createCartRequestModel.count());
             return savedCartItem.getCartItemId();
         } else {
-            CartItem cartItem = CartItem.createCartItem(cart, item, createCartRequestModel.count());
+            CartItem cartItem = CartItem.builder()
+                    .cart(cart)
+                    .item(item)
+                    .count(createCartRequestModel.count())
+                    .build();
             cartItemRepository.save(cartItem);
             return cartItem.getCartItemId();
         }
