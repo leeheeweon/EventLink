@@ -1,14 +1,11 @@
 package com.project.eventlink.item.service;
 
-import com.project.eventlink.item.model.CreateItemRequestModel;
-import com.project.eventlink.item.model.DeleteItemRequestModel;
-import com.project.eventlink.item.model.FindItemModel;
-import com.project.eventlink.item.model.UpdateItemRequestModel;
+import com.project.eventlink.item.model.*;
 
 import java.util.List;
 
 public interface ItemService {
-    List<FindItemModel> getItemList(String keyword);
+    List<FindItemListModel> getItemList(String keyword);
 
     FindItemModel getItemDetail(Long itemId);
 

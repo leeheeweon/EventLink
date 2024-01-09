@@ -1,10 +1,7 @@
 package com.project.eventlink.service;
 
 import com.project.eventlink.common.BaseSpringBootTest;
-import com.project.eventlink.item.model.CreateItemRequestModel;
-import com.project.eventlink.item.model.DeleteItemRequestModel;
-import com.project.eventlink.item.model.FindItemModel;
-import com.project.eventlink.item.model.UpdateItemRequestModel;
+import com.project.eventlink.item.model.*;
 import com.project.eventlink.item.option.model.CreateOptionDetailRequestModel;
 import com.project.eventlink.item.option.model.CreateOptionRequestModel;
 import com.project.eventlink.item.service.ItemService;
@@ -77,7 +74,7 @@ class ItemServiceTest extends BaseSpringBootTest {
         //given
 
         //when
-        List<FindItemModel> itemList = itemService.getItemList("test");
+        List<FindItemListModel> itemList = itemService.getItemList("test");
 
         //then
         assertAll(
@@ -121,6 +118,7 @@ class ItemServiceTest extends BaseSpringBootTest {
         FindItemModel findItem = itemService.getItemDetail(itemId);
 
         //then
+        assertThat(findItem.itemId()).isEqualTo(2L);
         assertThat(findItem.optionModelList()).isNull();
     }
 
@@ -128,11 +126,11 @@ class ItemServiceTest extends BaseSpringBootTest {
     @DisplayName("아이템을 삭제한다")
     void deleteItem() {
         //given
-        List<FindItemModel> beforeItemList = itemService.getItemList("");
+        List<FindItemListModel> beforeItemList = itemService.getItemList("");
 
         //when
         itemService.deleteItem(new DeleteItemRequestModel(2L));
-        List<FindItemModel> afterItemList = itemService.getItemList("");
+        List<FindItemListModel> afterItemList = itemService.getItemList("");
 
         //then
         assertThat(afterItemList).hasSizeLessThan(beforeItemList.size());

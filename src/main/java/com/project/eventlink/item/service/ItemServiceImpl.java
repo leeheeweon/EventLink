@@ -4,10 +4,7 @@ import com.project.eventlink.entity.SellStatus;
 import com.project.eventlink.exception.CommonException;
 import com.project.eventlink.exception.ExceptionType;
 import com.project.eventlink.item.domain.Item;
-import com.project.eventlink.item.model.CreateItemRequestModel;
-import com.project.eventlink.item.model.DeleteItemRequestModel;
-import com.project.eventlink.item.model.FindItemModel;
-import com.project.eventlink.item.model.UpdateItemRequestModel;
+import com.project.eventlink.item.model.*;
 import com.project.eventlink.item.model.mapper.ItemMapper;
 import com.project.eventlink.item.option.domain.Option;
 import com.project.eventlink.item.option.domain.OptionDetail;
@@ -37,9 +34,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<FindItemModel> getItemList(String keyword) {
+    public List<FindItemListModel> getItemList(String keyword) {
 
-        List<FindItemModel> itemList = itemRepository.searchItemList(keyword);
+        List<FindItemListModel> itemList = itemRepository.searchItemList(keyword);
         if (itemList.isEmpty()) {
             throw new CommonException(ExceptionType.ITEM_LIST_EMPTY);
         }
