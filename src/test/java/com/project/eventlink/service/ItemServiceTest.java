@@ -1,10 +1,7 @@
 package com.project.eventlink.service;
 
 import com.project.eventlink.common.BaseSpringBootTest;
-import com.project.eventlink.item.model.CreateItemRequestModel;
-import com.project.eventlink.item.model.DeleteItemRequestModel;
-import com.project.eventlink.item.model.FindItemResponseModel;
-import com.project.eventlink.item.model.UpdateItemRequestModel;
+import com.project.eventlink.item.model.*;
 import com.project.eventlink.item.option.model.CreateOptionDetailRequestModel;
 import com.project.eventlink.item.option.model.CreateOptionRequestModel;
 import com.project.eventlink.item.service.ItemService;
@@ -30,7 +27,7 @@ class ItemServiceTest extends BaseSpringBootTest {
 
         //when
         Long itemId = itemService.addItem(createItemRequestModel);
-        FindItemResponseModel findItem = itemService.getItemDetail(itemId);
+        FindItemModel findItem = itemService.getItemDetail(itemId);
 
         //then
         assertThat(findItem.name()).isEqualTo("test");
@@ -47,7 +44,7 @@ class ItemServiceTest extends BaseSpringBootTest {
 
         //when
         Long itemId = itemService.addItem(createItemRequestModel);
-        FindItemResponseModel findItem = itemService.getItemDetail(itemId);
+        FindItemModel findItem = itemService.getItemDetail(itemId);
 
         //then
         assertThat(findItem.name()).isEqualTo("test-with-option");
@@ -58,11 +55,11 @@ class ItemServiceTest extends BaseSpringBootTest {
     void updateItem() {
         //given
         UpdateItemRequestModel updateItemRequestModel = new UpdateItemRequestModel(1L, "update", 20000, 10, "update_detail", "CLOSE");
-        FindItemResponseModel beforeItemDetail = itemService.getItemDetail(updateItemRequestModel.id());
+        FindItemModel beforeItemDetail = itemService.getItemDetail(updateItemRequestModel.id());
 
         //when
         Long itemId = itemService.updateItem(updateItemRequestModel);
-        FindItemResponseModel afterItemDetail = itemService.getItemDetail(itemId);
+        FindItemModel afterItemDetail = itemService.getItemDetail(itemId);
 
         //then
         assertAll(
@@ -77,7 +74,7 @@ class ItemServiceTest extends BaseSpringBootTest {
         //given
 
         //when
-        List<FindItemResponseModel> itemList = itemService.getItemList("test");
+        List<FindItemListModel> itemList = itemService.getItemList("test");
 
         //then
         assertAll(
@@ -88,14 +85,52 @@ class ItemServiceTest extends BaseSpringBootTest {
     }
 
     @Test
+    @DisplayName("아이템 상세 조회한다 - 옵션 있음")
+    void itemDetail() {
+        //given
+        Long itemId = 1L;
+
+        //when
+        FindItemModel findItem = itemService.getItemDetail(itemId);
+
+        //then
+        assertAll(
+                () -> assertThat(findItem.itemId()).isEqualTo(1),
+                () -> assertThat(findItem.optionModelList())
+                        .extracting("optionId")
+                        .containsExactly(1L, 2L),
+                () -> assertThat(findItem.optionModelList().get(0).optionDetailModelList())
+                        .extracting("name")
+                        .contains("black", "white"),
+                () -> assertThat(findItem.optionModelList().get(1).optionDetailModelList())
+                        .extracting("name")
+                        .contains("small", "large")
+        );
+    }
+
+    @Test
+    @DisplayName("아이템 상세 조회한다 - 옵션 없음")
+    void itemDetailNoOption() {
+        //given
+        Long itemId = 2L;
+
+        //when
+        FindItemModel findItem = itemService.getItemDetail(itemId);
+
+        //then
+        assertThat(findItem.itemId()).isEqualTo(2L);
+        assertThat(findItem.optionModelList()).isNull();
+    }
+
+    @Test
     @DisplayName("아이템을 삭제한다")
     void deleteItem() {
         //given
-        List<FindItemResponseModel> beforeItemList = itemService.getItemList("");
+        List<FindItemListModel> beforeItemList = itemService.getItemList("");
 
         //when
         itemService.deleteItem(new DeleteItemRequestModel(2L));
-        List<FindItemResponseModel> afterItemList = itemService.getItemList("");
+        List<FindItemListModel> afterItemList = itemService.getItemList("");
 
         //then
         assertThat(afterItemList).hasSizeLessThan(beforeItemList.size());

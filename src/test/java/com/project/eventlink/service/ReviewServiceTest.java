@@ -30,7 +30,7 @@ class ReviewServiceTest extends BaseSpringBootTest {
     void addItemReview() {
         //Given
         String memberId = "test";
-        Long itemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail"));
+        Long itemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail", null));
 
         //When
         Long reviewId = reviewService.addReview(new CreateReviewRequestModel(memberId, itemId, null, "comment", 5));
@@ -44,7 +44,7 @@ class ReviewServiceTest extends BaseSpringBootTest {
     void deleteReview() {
         //Given
         String memberId = "test";
-        Long itemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail"));
+        Long itemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail", null));
         Long reviewId = reviewService.addReview(new CreateReviewRequestModel(memberId, itemId, null, "comment", 5));
 
         //When
@@ -58,7 +58,7 @@ class ReviewServiceTest extends BaseSpringBootTest {
     void updateReview() {
         //Given
         String memberId = "test";
-        Long itemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail"));
+        Long itemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail", null));
         Long reviewId = reviewService.addReview(new CreateReviewRequestModel(memberId, itemId, null, "comment", 5));
 
         //When
@@ -73,7 +73,7 @@ class ReviewServiceTest extends BaseSpringBootTest {
     void itemReviewList() {
         //Given
         String memberId = "test";
-        Long itemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail"));
+        Long itemId = itemService.addItem(new CreateItemRequestModel("name", 1000, 10, "detail", null));
         Long reviewId1 = reviewService.addReview(new CreateReviewRequestModel(memberId, itemId, null, "comment1", 5));
         Long reviewId2 = reviewService.addReview(new CreateReviewRequestModel(memberId, itemId, null, "comment2", 4));
         Long reviewId3 = reviewService.addReview(new CreateReviewRequestModel(memberId, itemId, null, "comment3", 3));
