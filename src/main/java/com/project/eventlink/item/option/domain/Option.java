@@ -5,6 +5,9 @@ import com.project.eventlink.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -22,4 +25,11 @@ public class Option {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
+
+    @OneToMany(mappedBy = "option" ,fetch = FetchType.LAZY, orphanRemoval = true)
+    private List<OptionDetail> optionDetails = new ArrayList<>();
+
+    public void addOptionDetail(List<OptionDetail> optionDetails) {
+        this.optionDetails = optionDetails;
+    }
 }

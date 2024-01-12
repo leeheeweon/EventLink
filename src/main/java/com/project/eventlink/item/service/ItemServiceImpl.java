@@ -102,6 +102,22 @@ public class ItemServiceImpl implements ItemService {
 
         item.updateItem(updateItemRequestModel);
 
+        if (Objects.nonNull(updateItemRequestModel.updateOptionRequestModels())) {
+            optionRepository.deleteAllByItemItemId(item.getItemId());
+            updateItemRequestModel.updateOptionRequestModels().forEach(updateOptionRequestModel -> {
+                Option option = Option.builder().item(item).name(updateOptionRequestModel.name()).build();
+                optionRepository.save(option);
+
+                updateOptionRequestModel.updateOptionDetailRequestModels().stream()
+                        .map(updateOptionDetailRequestModel ->
+                                OptionDetail.builder()
+                                        .option(option)
+                                        .name(updateOptionDetailRequestModel.name())
+                                        .price(updateOptionDetailRequestModel.price())
+                                        .stockQuantity(updateOptionDetailRequestModel.quantity())
+                                        .build()).forEach(optionDetailRepository::save);
+            });
+        }
         return item.getItemId();
     }
 
