@@ -26,10 +26,11 @@ public class Option {
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 
+    @Builder.Default
     @OneToMany(mappedBy = "option" ,fetch = FetchType.LAZY, orphanRemoval = true)
     private List<OptionDetail> optionDetails = new ArrayList<>();
 
-    public void addOptionDetail(List<OptionDetail> optionDetails) {
-        this.optionDetails = optionDetails;
+    public void addOptionDetail(OptionDetail optionDetail) {
+        optionDetails.add(optionDetail);
     }
 }

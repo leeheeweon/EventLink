@@ -4,10 +4,13 @@ import com.project.eventlink.common.BaseSpringBootTest;
 import com.project.eventlink.item.model.*;
 import com.project.eventlink.item.option.model.CreateOptionDetailRequestModel;
 import com.project.eventlink.item.option.model.CreateOptionRequestModel;
+import com.project.eventlink.item.option.model.UpdateOptionDetailRequestModel;
+import com.project.eventlink.item.option.model.UpdateOptionRequestModel;
 import com.project.eventlink.item.service.ItemService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,6 +24,7 @@ class ItemServiceTest extends BaseSpringBootTest {
 
     @Test
     @DisplayName("아이템을 추가한다 - 옵션 없음")
+    @Transactional
     void addItem() {
         //given
         CreateItemRequestModel createItemRequestModel = new CreateItemRequestModel("test", 1000, 10, "테스트아이템", null);
@@ -35,6 +39,7 @@ class ItemServiceTest extends BaseSpringBootTest {
 
     @Test
     @DisplayName("아이템을 추가한다 - 옵션 있음")
+    @Transactional
     void addItemWithOption() {
         //given
         CreateOptionRequestModel createOptionRequestModel = new CreateOptionRequestModel("test-option",
@@ -51,10 +56,33 @@ class ItemServiceTest extends BaseSpringBootTest {
     }
 
     @Test
-    @DisplayName("아이템을 수정한다")
+    @DisplayName("아이템을 수정한다 - 옵션 없음")
+    @Transactional
     void updateItem() {
         //given
-        UpdateItemRequestModel updateItemRequestModel = new UpdateItemRequestModel(1L, "update", 20000, 10, "update_detail", "CLOSE");
+        UpdateItemRequestModel updateItemRequestModel = new UpdateItemRequestModel(2L, "update", 20000, 10, "update_detail", "CLOSE", null);
+        FindItemModel beforeItemDetail = itemService.getItemDetail(updateItemRequestModel.id());
+
+        //when
+        Long itemId = itemService.updateItem(updateItemRequestModel);
+        FindItemModel afterItemDetail = itemService.getItemDetail(itemId);
+
+        //then
+        assertAll(
+                () -> assertThat(beforeItemDetail.name()).isEqualTo("test-2"),
+                () -> assertThat(afterItemDetail.name()).isEqualTo("update")
+        );
+    }
+
+    @Test
+    @DisplayName("아이템을 수정한다 - 옵션 있음")
+    @Transactional
+    void updateItemWithOption() {
+        //given
+        UpdateOptionRequestModel updateOptionRequestModel = new UpdateOptionRequestModel("test-option",
+                List.of(new UpdateOptionDetailRequestModel("test-detail-3", 2000, 20),
+                        new UpdateOptionDetailRequestModel("test-detail-4", 600, 25)));
+        UpdateItemRequestModel updateItemRequestModel = new UpdateItemRequestModel(1L, "update", 20000, 10, "update_detail", "CLOSE", List.of(updateOptionRequestModel));
         FindItemModel beforeItemDetail = itemService.getItemDetail(updateItemRequestModel.id());
 
         //when
@@ -64,7 +92,9 @@ class ItemServiceTest extends BaseSpringBootTest {
         //then
         assertAll(
                 () -> assertThat(beforeItemDetail.name()).isEqualTo("test-1"),
-                () -> assertThat(afterItemDetail.name()).isEqualTo("update")
+                () -> assertThat(afterItemDetail.name()).isEqualTo("update"),
+                () -> assertThat(afterItemDetail.optionModelList().get(0).name()).isEqualTo("test-option"),
+                () -> assertThat(afterItemDetail.optionModelList().get(0).optionDetailModelList()).extracting("name").contains("test-detail-3", "test-detail-4")
         );
     }
 
@@ -124,6 +154,7 @@ class ItemServiceTest extends BaseSpringBootTest {
 
     @Test
     @DisplayName("아이템을 삭제한다")
+    @Transactional
     void deleteItem() {
         //given
         List<FindItemListModel> beforeItemList = itemService.getItemList("");

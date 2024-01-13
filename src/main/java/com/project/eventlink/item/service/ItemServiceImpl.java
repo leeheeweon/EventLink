@@ -8,8 +8,7 @@ import com.project.eventlink.item.model.*;
 import com.project.eventlink.item.model.mapper.ItemMapper;
 import com.project.eventlink.item.option.domain.Option;
 import com.project.eventlink.item.option.domain.OptionDetail;
-import com.project.eventlink.item.option.model.FindOptionDetailModel;
-import com.project.eventlink.item.option.model.FindOptionModel;
+import com.project.eventlink.item.option.model.*;
 import com.project.eventlink.item.option.repository.OptionDetailRepository;
 import com.project.eventlink.item.option.repository.OptionRepository;
 import com.project.eventlink.item.repository.ItemRepository;
@@ -67,30 +66,24 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Long addItem(CreateItemRequestModel createItemRequestModel) {
 
-        Item item = Item.builder()
-                .name(createItemRequestModel.name())
-                .price(createItemRequestModel.price())
-                .stockQuantity(createItemRequestModel.quantity())
-                .detail(createItemRequestModel.detail())
-                .sellStatus(SellStatus.OPEN)
-                .build();
+        Item item = buildItem(createItemRequestModel);
 
         if (Objects.nonNull(createItemRequestModel.optionRequestModelList())) {
             createItemRequestModel.optionRequestModelList().forEach(createOptionRequestModel -> {
-                Option option = Option.builder().item(item).name(createOptionRequestModel.name()).build();
+                Option option = buildCreateOption(item, createOptionRequestModel);
+
+                createOptionRequestModel.createOptionDetailRequestModels()
+                        .stream()
+                        .map(detailRequestModel -> buildCreateOptionDetail(option, detailRequestModel))
+                        .forEach(optionDetail -> {
+                            option.addOptionDetail(optionDetail);
+                            optionDetailRepository.save(optionDetail);
+                        });
+
                 optionRepository.save(option);
 
-                createOptionRequestModel.createOptionDetailRequestModels().stream()
-                        .map(detailRequestModel ->
-                                OptionDetail.builder()
-                                        .option(option)
-                                        .name(detailRequestModel.name())
-                                        .price(detailRequestModel.price())
-                                        .stockQuantity(detailRequestModel.quantity())
-                                        .build()).forEach(optionDetailRepository::save);
             });
         }
-
         return itemRepository.save(item).getItemId();
     }
 
@@ -103,20 +96,17 @@ public class ItemServiceImpl implements ItemService {
         item.updateItem(updateItemRequestModel);
 
         if (Objects.nonNull(updateItemRequestModel.updateOptionRequestModels())) {
-            optionRepository.deleteAllByItemItemId(item.getItemId());
-            updateItemRequestModel.updateOptionRequestModels().forEach(updateOptionRequestModel -> {
-                Option option = Option.builder().item(item).name(updateOptionRequestModel.name()).build();
-                optionRepository.save(option);
 
-                updateOptionRequestModel.updateOptionDetailRequestModels().stream()
-                        .map(updateOptionDetailRequestModel ->
-                                OptionDetail.builder()
-                                        .option(option)
-                                        .name(updateOptionDetailRequestModel.name())
-                                        .price(updateOptionDetailRequestModel.price())
-                                        .stockQuantity(updateOptionDetailRequestModel.quantity())
-                                        .build()).forEach(optionDetailRepository::save);
-            });
+            optionRepository.deleteAllByItem(item);
+
+            updateItemRequestModel.updateOptionRequestModels()
+                    .forEach(updateOptionRequestModel -> {
+                        Option option = buildUpdateOption(item, updateOptionRequestModel);
+                        optionRepository.save(option);
+
+                        updateOptionRequestModel.updateOptionDetailRequestModels().stream()
+                                .map(updateOptionDetailRequestModel -> buildUpdateOptionDetail(option, updateOptionDetailRequestModel)).forEach(optionDetailRepository::save);
+                    });
         }
         return item.getItemId();
     }
@@ -124,10 +114,49 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     @Override
     public void deleteItem(DeleteItemRequestModel deleteItemRequestModel) {
-        itemRepository.findById(deleteItemRequestModel.id())
+        Item item = itemRepository.findById(deleteItemRequestModel.id())
                 .orElseThrow(() -> new CommonException(ExceptionType.ITEM_NOT_FOUND));
 
-        // TODO 되도록 soft delete 하는 것이 좋음 - 현재는 delete flag 값이 없어 hard delete 처리
+        optionRepository.deleteAllByItem(item);
         itemRepository.deleteById(deleteItemRequestModel.id());
+    }
+
+    private Item buildItem(CreateItemRequestModel createItemRequestModel) {
+        return Item.builder()
+                .name(createItemRequestModel.name())
+                .price(createItemRequestModel.price())
+                .stockQuantity(createItemRequestModel.quantity())
+                .detail(createItemRequestModel.detail())
+                .sellStatus(SellStatus.OPEN)
+                .build();
+    }
+
+    private Option buildCreateOption(Item item, CreateOptionRequestModel createOptionRequestModel) {
+        return Option.builder()
+                .item(item)
+                .name(createOptionRequestModel.name())
+                .build();
+    }
+
+    private OptionDetail buildCreateOptionDetail(Option option, CreateOptionDetailRequestModel detailRequestModel) {
+        return OptionDetail.builder()
+                .option(option)
+                .name(detailRequestModel.name())
+                .price(detailRequestModel.price())
+                .stockQuantity(detailRequestModel.quantity())
+                .build();
+    }
+
+    private Option buildUpdateOption(Item item, UpdateOptionRequestModel updateOptionRequestModel) {
+        return Option.builder().item(item).name(updateOptionRequestModel.name()).build();
+    }
+
+    private OptionDetail buildUpdateOptionDetail(Option option, UpdateOptionDetailRequestModel updateOptionDetailRequestModel) {
+        return OptionDetail.builder()
+                .option(option)
+                .name(updateOptionDetailRequestModel.name())
+                .price(updateOptionDetailRequestModel.price())
+                .stockQuantity(updateOptionDetailRequestModel.quantity())
+                .build();
     }
 }
