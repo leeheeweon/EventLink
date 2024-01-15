@@ -443,10 +443,13 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="sect1">
 <h2 id="Event-API">Event API</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>Event 와 관련된 API 목록 입니다.</p>
+</div>
 <div class="sect2">
-<h3 id="_event_list">Event List</h3>
+<h3 id="EVENT-ADD">Event List</h3>
 <div class="sect3">
-<h4 id="_event_list_http_request">HTTP request</h4>
+<h4 id="EVENT-ADD_http_request">HTTP request</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /event/list HTTP/1.1
@@ -456,7 +459,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_event_list_response_body">Response body</h4>
+<h4 id="EVENT-ADD_response_body">Response body</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="highlight nowrap"><code class="language-json" data-lang="json">{
@@ -465,7 +468,7 @@ Host: localhost:8080</code></pre>
   "data" : [ {
     "name" : "test_event",
     "minPrice" : 1000,
-    "memberId" : "1"
+    "memberId" : null
   } ]
 }</code></pre>
 </div>
@@ -478,7 +481,7 @@ Host: localhost:8080</code></pre>
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2023-12-16 19:38:39 +0900
+Last updated 2024-01-01 17:17:18 +0900
 </div>
 </div>
 </body>

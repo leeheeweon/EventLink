@@ -27,7 +27,7 @@ public class Option {
     private Item item;
 
     @Builder.Default
-    @OneToMany(mappedBy = "option" ,fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "option" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OptionDetail> optionDetails = new ArrayList<>();
 
     public void addOptionDetail(OptionDetail optionDetail) {
