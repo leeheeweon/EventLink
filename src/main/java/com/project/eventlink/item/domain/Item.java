@@ -9,8 +9,6 @@ import lombok.*;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "ITEM")
 public class Item extends BasicEntity {
@@ -32,6 +30,16 @@ public class Item extends BasicEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    @Builder
+    public Item(String name, int price, int stockQuantity, String detail, SellStatus sellStatus, Member member) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.detail = detail;
+        this.sellStatus = sellStatus;
+        this.member = member;
+    }
 
     public void updateItem(UpdateItemRequestModel updateItemRequestModel) {
         this.name = updateItemRequestModel.name();
