@@ -16,8 +16,8 @@ public class ItemController {
 
     private final ItemService itemService;
 
-    @GetMapping("/list/{keyword}")
-    public CommonResponse itemList(@PathVariable String keyword) {
+    @GetMapping("/list")
+    public CommonResponse itemList(@RequestParam String keyword) {
         return CommonResponse.toResponse(HttpStatus.OK, itemService.getItemList(keyword));
     }
 
