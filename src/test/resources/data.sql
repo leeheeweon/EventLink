@@ -24,4 +24,4 @@ insert into option_detail (name, price, stock_quantity, option_id) values ('larg
 
 -- Event
 insert into event (event_id, name, min_price, created_at, created_by, modified_at, modified_by)
-values (1, 'test_event', 1000, '2023-12-01 10:47:52.000', 'admin', '2023-12-01 10:47:52.000', 'admin');
+values (0, 'test_event', 1000, '2023-12-01 10:47:52.000', 'admin', '2023-12-01 10:47:52.000', 'admin');

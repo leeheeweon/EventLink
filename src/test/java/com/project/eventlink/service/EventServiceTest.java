@@ -1,37 +1,99 @@
 package com.project.eventlink.service;
 
 import com.project.eventlink.common.BaseSpringBootTest;
-import com.project.eventlink.event.doamin.Event;
+import com.project.eventlink.event.model.CreateEventRequestModel;
+import com.project.eventlink.event.model.DeleteEventRequestModel;
+import com.project.eventlink.event.model.EventResponse;
+import com.project.eventlink.event.model.FindEventModel;
+import com.project.eventlink.event.model.UpdateRequestModel;
 import com.project.eventlink.event.service.EventService;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EventServiceTest extends BaseSpringBootTest {
 
-    @MockBean
+    @Autowired
     private EventService eventService;
 
-    @ParameterizedTest
-    @ValueSource(longs = {0})
+    @Test
+    @Transactional
     @DisplayName("이벤트 리스트를 가져온다")
-    void getAllEventList(Long value) {
+    void getAllEventList() {
 
         //given
-        Event newEvent = Event.builder()
-                .eventId(value)
-                .name("new_event")
-                .minPrice(1000)
-                .build();
+        CreateEventRequestModel createEventRequestModel1 = new CreateEventRequestModel("new_event1", 1000, "test");
+        CreateEventRequestModel createEventRequestModel2 = new CreateEventRequestModel("new_event2", 2000, "test");
+        CreateEventRequestModel createEventRequestModel3 = new CreateEventRequestModel("new_event3", 3000, "test");
 
         //when
-        Long eventId = eventService.addEvent(newEvent);
+        Long eventId1 = eventService.addEvent(createEventRequestModel1);
+        Long eventId2 = eventService.addEvent(createEventRequestModel2);
+        Long eventId3 = eventService.addEvent(createEventRequestModel3);
+
+        List<EventResponse> eventList = eventService.getEventList();
+
 
         //then
-        assertThat(eventId).isEqualTo(value);
+        //data.sql저장된것 1개 있음
+        assertThat(eventList.size()).isEqualTo(4);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("이벤트 저장한다.")
+    void addEventTest() {
+        //given
+        CreateEventRequestModel createEventRequestModel = new CreateEventRequestModel("new_event", 1000, "test");
+
+        //when
+        Long eventId = eventService.addEvent(createEventRequestModel);
+
+        FindEventModel findEventModel = eventService.getEvent(eventId);
+        //then
+        assertThat(findEventModel).isNotNull();
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("이벤트 삭제한다.")
+    void deleteEventTest() {
+        //given
+        CreateEventRequestModel createEventRequestModel = new CreateEventRequestModel("new_event", 1000, "test");
+
+        //when
+        Long eventId = eventService.addEvent(createEventRequestModel);
+        eventService.deleteEvent(new DeleteEventRequestModel(eventId));
+        List<EventResponse> eventList = eventService.getEventList();
+
+        //then
+        //data.sql 저장된것 1개있음
+        assertThat(eventList.size()).isEqualTo(1);
+    }
+
+    @Test
+    @Transactional
+    @DisplayName("이벤트 업데이트한다.")
+    void updateEventTest() {
+        //given
+        CreateEventRequestModel createEventRequestModel = new CreateEventRequestModel("new_event", 1000, "test");
+
+        //when
+        Long eventId = eventService.addEvent(createEventRequestModel);
+        UpdateRequestModel updateRequestModel = new UpdateRequestModel(eventId, "updated", 2000);
+
+        eventService.updateEvent(updateRequestModel);
+
+        FindEventModel event = eventService.getEvent(eventId);
+
+        //then
+        //data.sql 저장된것 1개있음
+        assertThat(event.name()).isEqualTo(updateRequestModel.name());
     }
 
 }
