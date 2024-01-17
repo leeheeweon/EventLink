@@ -1,0 +1,6 @@
+[[Item-API]]
+== Item API
+Event 와 관련된 API 목록 입니다.
+[[Item-ADD]]
+=== Item List
+operation::item_list[snippets='http-request,query-parameters,response-body']
