@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class CartController {
     private final CartService cartService;
 
-    @GetMapping("/cart")
+    @GetMapping("/list")
     public CommonResponse cartList(String memberId) {
         return CommonResponse.toResponse(HttpStatus.OK, cartService.cartItemList(memberId));
     }

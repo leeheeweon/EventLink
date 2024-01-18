@@ -1,6 +1,6 @@
 package com.project.eventlink.review.service;
 
-import com.project.eventlink.event.repository.EventJpaRepository;
+import com.project.eventlink.event.repository.EventRepository;
 import com.project.eventlink.item.repository.ItemRepository;
 import com.project.eventlink.member.repository.MemberRepository;
 import com.project.eventlink.review.domain.Review;
@@ -21,7 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
-    private final EventJpaRepository eventRepository;
+    private final EventRepository eventRepository;
 
     @Override
     public Long addReview(CreateReviewRequestModel createReviewRequestModel) {

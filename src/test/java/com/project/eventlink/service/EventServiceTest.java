@@ -3,9 +3,9 @@ package com.project.eventlink.service;
 import com.project.eventlink.common.BaseSpringBootTest;
 import com.project.eventlink.event.model.CreateEventRequestModel;
 import com.project.eventlink.event.model.DeleteEventRequestModel;
-import com.project.eventlink.event.model.EventResponse;
+import com.project.eventlink.event.model.FindEventListModel;
 import com.project.eventlink.event.model.FindEventModel;
-import com.project.eventlink.event.model.UpdateRequestModel;
+import com.project.eventlink.event.model.UpdateEventRequestModel;
 import com.project.eventlink.event.service.EventService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
@@ -36,7 +36,7 @@ class EventServiceTest extends BaseSpringBootTest {
         Long eventId2 = eventService.addEvent(createEventRequestModel2);
         Long eventId3 = eventService.addEvent(createEventRequestModel3);
 
-        List<EventResponse> eventList = eventService.getEventList();
+        List<FindEventListModel> eventList = eventService.getEventList();
 
 
         //then
@@ -69,7 +69,7 @@ class EventServiceTest extends BaseSpringBootTest {
         //when
         Long eventId = eventService.addEvent(createEventRequestModel);
         eventService.deleteEvent(new DeleteEventRequestModel(eventId));
-        List<EventResponse> eventList = eventService.getEventList();
+        List<FindEventListModel> eventList = eventService.getEventList();
 
         //then
         //data.sql 저장된것 1개있음
@@ -85,15 +85,15 @@ class EventServiceTest extends BaseSpringBootTest {
 
         //when
         Long eventId = eventService.addEvent(createEventRequestModel);
-        UpdateRequestModel updateRequestModel = new UpdateRequestModel(eventId, "updated", 2000);
+        UpdateEventRequestModel updateEventRequestModel = new UpdateEventRequestModel(eventId, "updated", 2000);
 
-        eventService.updateEvent(updateRequestModel);
+        eventService.updateEvent(updateEventRequestModel);
 
         FindEventModel event = eventService.getEvent(eventId);
 
         //then
         //data.sql 저장된것 1개있음
-        assertThat(event.name()).isEqualTo(updateRequestModel.name());
+        assertThat(event.name()).isEqualTo(updateEventRequestModel.name());
     }
 
 }

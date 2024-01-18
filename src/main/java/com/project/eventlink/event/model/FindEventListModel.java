@@ -1,6 +1,6 @@
 package com.project.eventlink.event.model;
 
-public record EventResponse(
+public record FindEventListModel(
         String name,
         Integer minPrice,
         String memberId

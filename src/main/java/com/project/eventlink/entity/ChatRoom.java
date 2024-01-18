@@ -1,6 +1,7 @@
 package com.project.eventlink.entity;
 
 import com.project.eventlink.member.domain.Member;
+import com.project.eventlink.reservation.domain.Reservation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

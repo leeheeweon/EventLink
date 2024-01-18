@@ -2,15 +2,15 @@ package com.project.eventlink.event.service;
 
 import com.project.eventlink.event.model.CreateEventRequestModel;
 import com.project.eventlink.event.model.DeleteEventRequestModel;
-import com.project.eventlink.event.model.EventResponse;
+import com.project.eventlink.event.model.FindEventListModel;
 import com.project.eventlink.event.model.FindEventModel;
-import com.project.eventlink.event.model.UpdateRequestModel;
+import com.project.eventlink.event.model.UpdateEventRequestModel;
 
 import java.util.List;
 
 public interface EventService {
 
-    List<EventResponse> getEventList();
+    List<FindEventListModel> getEventList();
 
     Long addEvent(CreateEventRequestModel event);
 
@@ -18,5 +18,5 @@ public interface EventService {
 
     void deleteEvent(DeleteEventRequestModel deleteEventRequestModel);
 
-    void updateEvent(UpdateRequestModel eventId);
+    void updateEvent(UpdateEventRequestModel eventId);
 }
