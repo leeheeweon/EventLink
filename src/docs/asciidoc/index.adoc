@@ -22,3 +22,5 @@ EventLink API Documentation 입니다.
 include::Member-API.adoc[]
 
 include::Event-API.adoc[]
+
+include::Item-API.adoc[]
