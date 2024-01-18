@@ -10,8 +10,6 @@ import java.util.List;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "OPTION")
 public class Option {
@@ -26,9 +24,14 @@ public class Option {
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 
-    @Builder.Default
     @OneToMany(mappedBy = "option" ,fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OptionDetail> optionDetails = new ArrayList<>();
+
+    @Builder
+    public Option(String name, Item item) {
+        this.name = name;
+        this.item = item;
+    }
 
     public void addOptionDetail(OptionDetail optionDetail) {
         optionDetails.add(optionDetail);

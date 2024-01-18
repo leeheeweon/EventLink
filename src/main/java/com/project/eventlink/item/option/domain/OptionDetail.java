@@ -6,8 +6,6 @@ import lombok.*;
 
 @Entity
 @Getter
-@Builder
-@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "OPTION_DETAIL")
 public class OptionDetail {
@@ -25,4 +23,12 @@ public class OptionDetail {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OPTION_ID")
     private Option option;
+
+    @Builder
+    public OptionDetail(String name, int price, int stockQuantity, Option option) {
+        this.name = name;
+        this.price = price;
+        this.stockQuantity = stockQuantity;
+        this.option = option;
+    }
 }
