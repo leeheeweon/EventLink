@@ -1,18 +1,16 @@
-package com.project.eventlink.entity;
+package com.project.eventlink.order.domain;
 
+import com.project.eventlink.entity.BasicEntity;
+import com.project.eventlink.entity.Delivery;
 import com.project.eventlink.member.domain.Member;
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "ORDERS")
 public class Order extends BasicEntity {
@@ -23,9 +21,6 @@ public class Order extends BasicEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
-    @OneToMany(mappedBy = "order")
-    private List<OrderItem> orderItems = new ArrayList<>();
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
@@ -33,4 +28,11 @@ public class Order extends BasicEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
+
+    @Builder
+    public Order(OrderStatus orderStatus, Member member, Delivery delivery) {
+        this.orderStatus = orderStatus;
+        this.member = member;
+        this.delivery = delivery;
+    }
 }

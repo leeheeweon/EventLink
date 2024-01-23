@@ -1,5 +1,6 @@
-package com.project.eventlink.entity;
+package com.project.eventlink.order.domain;
 
+import com.project.eventlink.entity.BasicEntity;
 import com.project.eventlink.item.domain.Item;
 import jakarta.persistence.*;
 import lombok.AccessLevel;

@@ -1,14 +1,10 @@
 package com.project.eventlink.entity;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "DELIVERY")
 public class Delivery extends BasicEntity {
@@ -19,4 +15,9 @@ public class Delivery extends BasicEntity {
 
     @Embedded
     private Address address;
+
+    @Builder
+    public Delivery(Address address) {
+        this.address = address;
+    }
 }

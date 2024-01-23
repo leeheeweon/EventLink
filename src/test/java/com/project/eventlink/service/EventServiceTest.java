@@ -1,11 +1,7 @@
 package com.project.eventlink.service;
 
 import com.project.eventlink.common.BaseSpringBootTest;
-import com.project.eventlink.event.model.CreateEventRequestModel;
-import com.project.eventlink.event.model.DeleteEventRequestModel;
-import com.project.eventlink.event.model.EventResponse;
-import com.project.eventlink.event.model.FindEventModel;
-import com.project.eventlink.event.model.UpdateRequestModel;
+import com.project.eventlink.event.model.*;
 import com.project.eventlink.event.service.EventService;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.DisplayName;
