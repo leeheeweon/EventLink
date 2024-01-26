@@ -49,6 +49,4 @@ public class SecurityConfig {
                         .invalidateHttpSession(true));
         return http.build();
     }
-
-
 }
