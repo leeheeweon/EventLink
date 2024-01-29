@@ -3,8 +3,8 @@ package com.project.eventlink.event.controller;
 import com.project.eventlink.common.model.CommonResponse;
 import com.project.eventlink.event.model.CreateEventRequestModel;
 import com.project.eventlink.event.model.DeleteEventRequestModel;
-import com.project.eventlink.event.model.EventResponse;
-import com.project.eventlink.event.model.UpdateRequestModel;
+import com.project.eventlink.event.model.FindEventListModel;
+import com.project.eventlink.event.model.UpdateEventRequestModel;
 import com.project.eventlink.event.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +27,7 @@ public class EventController {
 
     @GetMapping("/list")
     public CommonResponse eventList() {
-        List<EventResponse> eventList = eventService.getEventList();
+        List<FindEventListModel> eventList = eventService.getEventList();
         return CommonResponse.toResponse(HttpStatus.OK, eventList);
     }
 
@@ -49,9 +49,9 @@ public class EventController {
     }
 
     @PutMapping("/update")
-    public CommonResponse updateEvent(UpdateRequestModel updateRequestModel) {
-        eventService.updateEvent(updateRequestModel);
-        return CommonResponse.toResponse(HttpStatus.OK, updateRequestModel.eventId());
+    public CommonResponse updateEvent(UpdateEventRequestModel updateEventRequestModel) {
+        eventService.updateEvent(updateEventRequestModel);
+        return CommonResponse.toResponse(HttpStatus.OK, updateEventRequestModel.eventId());
     }
 }
 

@@ -1,8 +1,9 @@
 package com.project.eventlink.event.doamin;
 
 import com.project.eventlink.entity.BasicEntity;
-import com.project.eventlink.event.model.UpdateRequestModel;
+import com.project.eventlink.event.model.UpdateEventRequestModel;
 import com.project.eventlink.member.domain.Member;
+import com.project.eventlink.reservation.domain.Reservation;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -40,8 +42,11 @@ public class Event extends BasicEntity {
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
 
-    public void updateEvent(UpdateRequestModel updateRequestModel) {
-        this.name = updateRequestModel.name();
-        this.minPrice = updateRequestModel.minPrice();
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "event")
+    private Reservation reservation;
+
+    public void updateEvent(UpdateEventRequestModel updateEventRequestModel) {
+        this.name = updateEventRequestModel.name();
+        this.minPrice = updateEventRequestModel.minPrice();
     }
 }
