@@ -3,11 +3,10 @@ package com.project.eventlink.event.service;
 import com.project.eventlink.event.doamin.Event;
 import com.project.eventlink.event.model.CreateEventRequestModel;
 import com.project.eventlink.event.model.DeleteEventRequestModel;
-import com.project.eventlink.event.model.EventResponse;
+import com.project.eventlink.event.model.FindEventListModel;
 import com.project.eventlink.event.model.FindEventModel;
-import com.project.eventlink.event.model.UpdateRequestModel;
+import com.project.eventlink.event.model.UpdateEventRequestModel;
 import com.project.eventlink.event.model.mapper.EventMapper;
-import com.project.eventlink.event.repository.EventJpaRepository;
 import com.project.eventlink.event.repository.EventRepository;
 import com.project.eventlink.member.domain.Member;
 import com.project.eventlink.member.repository.MemberRepository;
@@ -23,12 +22,11 @@ import java.util.List;
 public class EventServiceImpl implements EventService {
 
     private final EventRepository eventRepository;
-    private final EventJpaRepository eventJpaRepository;
     private final EventMapper eventMapper;
     private final MemberRepository memberRepository;
 
     @Override
-    public List<EventResponse> getEventList() {
+    public List<FindEventListModel> getEventList() {
 
         List<Event> eventList = eventRepository.findAll();
         return eventList.stream().map(eventMapper::toEventResponseModel).toList();
@@ -40,23 +38,23 @@ public class EventServiceImpl implements EventService {
         Member member = memberRepository.findByMemberId(createEventRequestModel.memberId());
         Event event = Event.builder().name(createEventRequestModel.name()).minPrice(createEventRequestModel.minPrice()).member(member).build();
 
-        return eventRepository.save(event);
+        return eventRepository.save(event).getEventId();
     }
 
     @Override
     public FindEventModel getEvent(Long eventId) {
-        Event event = eventJpaRepository.findByEventId(eventId);
+        Event event = eventRepository.findByEventId(eventId);
         return new FindEventModel(event.getName(), event.getMinPrice(), event.getMember().getMemberId());
     }
 
     @Override
     public void deleteEvent(DeleteEventRequestModel deleteEventRequestModel) {
-        eventJpaRepository.deleteById(deleteEventRequestModel.eventId());
+        eventRepository.deleteById(deleteEventRequestModel.eventId());
     }
 
     @Override
-    public void updateEvent(UpdateRequestModel updateRequestModel) {
-        Event event = eventJpaRepository.findByEventId(updateRequestModel.eventId());
-        event.updateEvent(updateRequestModel);
+    public void updateEvent(UpdateEventRequestModel updateEventRequestModel) {
+        Event event = eventRepository.findByEventId(updateEventRequestModel.eventId());
+        event.updateEvent(updateEventRequestModel);
     }
 }

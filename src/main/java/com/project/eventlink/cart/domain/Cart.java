@@ -41,7 +41,7 @@ public class Cart extends BasicEntity {
     private Member member;
 
     @OneToMany(mappedBy = "cart")
-    private List<CartItem> cartItems = new ArrayList<>();
+    private final List<CartItem> cartItems = new ArrayList<>();
 
     public long totalPrice() {
         long totalPrice = 0;
