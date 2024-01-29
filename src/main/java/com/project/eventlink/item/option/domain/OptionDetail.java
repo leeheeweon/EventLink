@@ -1,8 +1,10 @@
 package com.project.eventlink.item.option.domain;
 
-import com.project.eventlink.entity.BasicEntity;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter

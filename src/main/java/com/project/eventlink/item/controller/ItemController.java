@@ -27,17 +27,17 @@ public class ItemController {
     }
 
     @PostMapping("/add")
-    public CommonResponse addItem(@RequestHeader("authorization") String authorization, CreateItemRequestModel createItemRequestModel) {
+    public CommonResponse addItem(@RequestHeader("authorization") String authorization, @RequestBody CreateItemRequestModel createItemRequestModel) {
         return CommonResponse.toResponse(HttpStatus.CREATED, itemService.addItem(createItemRequestModel));
     }
 
     @PutMapping("/update")
-    public CommonResponse updateItem(@RequestHeader("authorization") String authorization, UpdateItemRequestModel updateItemRequestModel) {
+    public CommonResponse updateItem(@RequestHeader("authorization") String authorization, @RequestBody UpdateItemRequestModel updateItemRequestModel) {
         return CommonResponse.toResponse(HttpStatus.OK, itemService.updateItem(updateItemRequestModel));
     }
 
     @DeleteMapping("/delete")
-    public CommonResponse deleteItem(@RequestHeader("authorization") String authorization, DeleteItemRequestModel deleteItemRequestModel) {
+    public CommonResponse deleteItem(@RequestHeader("authorization") String authorization, @RequestBody DeleteItemRequestModel deleteItemRequestModel) {
         itemService.deleteItem(deleteItemRequestModel);
         return CommonResponse.toResponse(HttpStatus.OK, deleteItemRequestModel.id());
     }

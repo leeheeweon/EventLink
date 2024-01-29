@@ -32,7 +32,7 @@ public class BaseSpringBootTest {
         JoinForm joinForm = new JoinForm();
         joinForm.setUserId("before_test_user");
         joinForm.setPassword("before_test_password");
-        joinForm.setRole(Role.USER);
+        joinForm.setRole(Role.PROVIDER);
         testMember = Member.createUserByJoinForm(joinForm);
 
         Authentication authentication = new TestingAuthenticationToken(testMember, "password");

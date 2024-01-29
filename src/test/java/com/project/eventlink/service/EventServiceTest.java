@@ -1,6 +1,7 @@
 package com.project.eventlink.service;
 
 import com.project.eventlink.common.BaseSpringBootTest;
+import com.project.eventlink.event.model.*;
 import com.project.eventlink.event.model.CreateEventRequestModel;
 import com.project.eventlink.event.model.DeleteEventRequestModel;
 import com.project.eventlink.event.model.FindEventListModel;
